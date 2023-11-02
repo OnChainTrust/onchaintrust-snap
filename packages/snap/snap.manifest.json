@@ -1,18 +1,18 @@
 {
   "version": "0.1.0",
-  "description": "Bringing Trust to Cryptocurrency Transactions",
+  "description": "OnChainTrust brings trust to cryptocurrency transactions by adding Recipient Information to the transaction confirmation screen",
   "proposedName": "OnChainTrust",
   "repository": {
     "type": "git",
     "url": "https://github.com/OnChainTrust/onchaintrust-snap.git"
   },
   "source": {
-    "shasum": "HiluR/LF22YWJVZC49JzK3Ozznb+ChO4gw6vqgZR+Gc=",
+    "shasum": "5j0p7ZC+PO/iz6uUNIX3EaWrjpIPifXbe4maF1tGPCU=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap",
+        "packageName": "onchaintrust",
         "registry": "https://registry.npmjs.org/"
       }
     }
