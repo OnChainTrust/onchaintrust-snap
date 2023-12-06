@@ -20,7 +20,7 @@ export const onTransaction: OnTransactionHandler = async ({ transactionOrigin, t
   if (!companyName && !lei && !email && !message) {
     panelContent.push(text("⛔️ No information found for this address ⛔️"));
   } else {
-    panelContent.push(text("⚠️ Information provided by the address owner was not verified. Make sure you trust this address"));
+    panelContent.push(text("⚠️ Information provided by the address owner was not verified. Make sure you trust this address."));
     panelContent.push(divider());
     if (companyName) {
       panelContent.push(heading(companyName));
