@@ -12,7 +12,7 @@ export const onTransaction: OnTransactionHandler = async ({
   ];
   const provider = new ethers.BrowserProvider(ethereum);
   const contract = new Contract(
-    '0xb13C133A5D20276E18963545075499e191c6E170',
+    '0xdA120AbE50DBDa314445d053725fB24398BA774b',
     abi,
     provider,
   );
