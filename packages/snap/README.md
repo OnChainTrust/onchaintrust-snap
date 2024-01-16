@@ -2,6 +2,7 @@
 
 This snap displays information about an Owner of Recipient Address / Smart Contract on Transaction Confirmation Screen.
 Recipient information could be of 3 types:
+
 - Not provided
 - Provided, not verified
 - Provided, verified
