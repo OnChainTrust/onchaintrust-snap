@@ -3,13 +3,12 @@ import { installSnap } from '@metamask/snaps-jest';
 // import { expect } from '@jest/globals';
 import { panel, text } from '@metamask/snaps-ui';
 
-
 describe('onTransaction handler tests', () => {
-//   beforeAll(async () => {
-//     if (typeof global.window === 'undefined') {
-//       global.window = global as any;
-//     }
-//   });
+  //   beforeAll(async () => {
+  //     if (typeof global.window === 'undefined') {
+  //       global.window = global as any;
+  //     }
+  //   });
 
   // afterEach(() => {
   //     // Reset mock after each test
@@ -38,7 +37,7 @@ describe('onTransaction handler tests', () => {
     // Add your assertions here
     // For example, you can use expect statements to verify the behavior of the function
     // expect(...).toBe(...);
-    // expect(response).toRender(panel([text('Hello, world!')]));
-    expect(response).toEqual({});
+    expect(response).toRender(panel([text('Hello, world!')]));
+    // expect(response).toEqual({});
   });
 });
