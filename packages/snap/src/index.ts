@@ -1,4 +1,3 @@
-import { ethers, Contract } from 'ethers';
 import { OnTransactionHandler } from '@metamask/snaps-types';
 import { heading, panel, text, divider } from '@metamask/snaps-ui';
 
@@ -7,22 +6,21 @@ export const onTransaction: OnTransactionHandler = async ({
   // transactionOrigin,
   transaction,
 }) => {
-  const abi = [
-    'function getAddressInfo(address _address) view returns (string memory, string memory, string memory, string memory, bool)',
-  ];
-  const provider = new ethers.BrowserProvider(ethereum);
-  const contract = new Contract(
-    '0xdA120AbE50DBDa314445d053725fB24398BA774b',
-    abi,
-    provider,
-  );
-  const recipientInformation = await contract.getAddressInfo(transaction.to);
+  const uri = `https://onchaintrust.vercel.app/api/getAddressInfo?address=${transaction.to}`
+  const recipientInformation: { [key: string]: string } = await global.fetch(uri)
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error('Bad response from server');
+    }
+    return res.json();
+  })
+  .catch((err) => console.error(err));
 
-  const companyName = recipientInformation[0];
-  const lei = recipientInformation[1];
-  const email = recipientInformation[2];
-  const message = recipientInformation[3];
-  const isVerified = recipientInformation[4];
+  const companyName = recipientInformation["name"];
+  const lei = recipientInformation["lei"];
+  const email = recipientInformation["email"];
+  const message = recipientInformation["message"];
+  const isVerified = recipientInformation["isVerified"];
 
   const panelContent = [];
   if (!companyName && !lei && !email && !message) {
