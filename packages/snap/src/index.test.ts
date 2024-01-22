@@ -5,13 +5,11 @@ import { panel, text } from '@metamask/snaps-ui';
 
 
 describe('onTransaction handler tests', () => {
-  beforeAll(async () => {
-    if (typeof global.window === 'undefined') {
-      global.window = global as any;
-    }
-
-    const snap = await installSnap();
-  });
+//   beforeAll(async () => {
+//     if (typeof global.window === 'undefined') {
+//       global.window = global as any;
+//     }
+//   });
 
   // afterEach(() => {
   //     // Reset mock after each test
@@ -25,16 +23,6 @@ describe('onTransaction handler tests', () => {
 
   it('should handle outgoing transactions', async () => {
     const { sendTransaction } = await installSnap();
-    // Mock transaction object
-    const transaction = {
-      from: '0x876182C9669E48CEff1F942C7acB5bB98Ea79753',
-      to: '0x876182C9669E48CEff1F942C7acB5bB98Ea79753',
-      value: '1000000000000000000', // 1 ETH
-      gasPrice: '20000000000', // 20 Gwei
-      gasLimit: '21000',
-      data: '0x',
-      nonce: '0',
-    };
 
     // Call the onTransaction handler
     // const response = await sendTransaction({});
