@@ -6,21 +6,22 @@ export const onTransaction: OnTransactionHandler = async ({
   // transactionOrigin,
   transaction,
 }) => {
-  const uri = `https://onchaintrust.vercel.app/api/getAddressInfo?address=${transaction.to}`
-  const recipientInformation: { [key: string]: string } = await global.fetch(uri)
-  .then((res) => {
-    if (!res.ok) {
-      throw new Error('Bad response from server');
-    }
-    return res.json();
-  })
-  .catch((err) => console.error(err));
+  const uri = `https://onchaintrust.vercel.app/api/getAddressInfo?address=${transaction.to}`;
+  const recipientInformation: { [key: string]: string } = await global
+    .fetch(uri)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Bad response from server');
+      }
+      return res.json();
+    })
+    .catch((err) => console.error(err));
 
-  const companyName = recipientInformation["name"];
-  const lei = recipientInformation["lei"];
-  const email = recipientInformation["email"];
-  const message = recipientInformation["message"];
-  const isVerified = recipientInformation["isVerified"];
+  const companyName = recipientInformation.name;
+  const { lei } = recipientInformation;
+  const { email } = recipientInformation;
+  const { message } = recipientInformation;
+  const { isVerified } = recipientInformation;
 
   const panelContent = [];
   if (!companyName && !lei && !email && !message) {
