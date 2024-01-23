@@ -14,6 +14,8 @@ describe('onTransaction handler tests', () => {
       nonce: '0x0',
     });
 
-    expect(response).toRender(panel([text("⛔️ No information found for this address ⛔️")]));
+    expect(response).toRender(
+      panel([text('⛔️ No information found for this address ⛔️')]),
+    );
   });
 });
