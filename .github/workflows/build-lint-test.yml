@@ -27,7 +27,7 @@ jobs:
         if: ${{ matrix.node-version == '18.x' }}
         uses: actions/cache@v3
         with:
-          path: ./packages/snap/dist
+          path: ./packages/onchaintrust-snap/dist
           key: snap-${{ runner.os }}-${{ github.sha }}
       - name: Require clean working directory
         shell: bash
@@ -52,13 +52,13 @@ jobs:
       - name: Restore snap build cache
         uses: actions/cache@v3
         with:
-          path: ./packages/snap/dist
+          path: ./packages/onchaintrust-snap/dist
           key: snap-${{ runner.os }}-${{ github.sha }}
       - run: yarn install --immutable
       - name: Install Google Chrome
         run: yarn install-chrome
       - name: Run e2e tests
-        run: yarn workspace onchaintrust-snap run test
+        run: yarn workspace @onchaintrust/onchaintrust-snap run test
 
   all-jobs-pass:
     name: All jobs pass
