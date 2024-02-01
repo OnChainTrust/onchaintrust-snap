@@ -2,59 +2,77 @@ import { installSnap } from '@metamask/snaps-jest';
 import { divider, heading, panel, text } from '@metamask/snaps-ui';
 
 describe('onTransaction handler tests', () => {
+  const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa';
+  const apiUri = `https://onchaintrust.vercel.app/api/getAddressInfo?address=${recipientAddress}`;
+
+  /**
+   * Sets up the test environment for the onTransaction handler.
+   *
+   * @param responseBody - The response body to return from the mock.
+   */
+  async function setupTestEnvironment(responseBody: string) {
+    const { mock, sendTransaction: localSendTransaction } = await installSnap();
+
+    const mockSetup = await mock({
+      url: apiUri,
+      response: {
+        status: 200,
+        body: responseBody,
+      },
+    });
+
+    return { sendTransaction: localSendTransaction, unmock: mockSetup.unmock };
+  }
+
+  let sendTransaction: (transaction: any) => Promise<any>;
+  let unmock: () => Promise<void>;
+
+  afterEach(async () => {
+    // Clean up the mock after each test.
+    if (unmock) {
+      await unmock();
+    }
+  });
+
   describe('when the address is not found', () => {
+    beforeEach(async () => {
+      const responseBody = '{}';
+
+      const setup = await setupTestEnvironment(responseBody);
+      sendTransaction = setup.sendTransaction;
+    });
+
     it('should handle outgoing transactions', async () => {
-      const { mock, sendTransaction } = await installSnap();
-
-      const { unmock } = await mock({
-        url: 'https://onchaintrust.vercel.app/api/getAddressInfo?address=0xdac83f876ae50433a20363845f43042d8d81b1aa',
-        response: {
-          status: 200,
-          body: '{}',
-        },
-      });
-
       const response = await sendTransaction({
-        to: '0xdac83f876ae50433a20363845f43042d8d81b1aa',
-        value: '0x0',
-        data: '0x',
-        gasLimit: '0x5208',
-        maxFeePerGas: '0x5208',
-        maxPriorityFeePerGas: '0x5208',
-        nonce: '0x0',
+        to: recipientAddress,
       });
 
       expect(response).toRender(
         panel([text('⛔️ No information found for this address ⛔️')]),
       );
-
-      unmock();
     });
   });
 
   describe('when the address is found and is not verified', () => {
+    beforeEach(async () => {
+      const responseBody = `{
+        "name":"MetaMask",
+        "lei":"254900OPPU84GM83MG36",
+        "email":"example@example.com",
+        "message":"This is a test message",
+        "isVerified":false
+      }`;
+
+      const setup = await setupTestEnvironment(responseBody);
+      sendTransaction = setup.sendTransaction;
+    });
+
     it('should handle outgoing transactions', async () => {
-      const { mock, sendTransaction } = await installSnap();
-
-      const { unmock } = await mock({
-        url: 'https://onchaintrust.vercel.app/api/getAddressInfo?address=0xdac83f876ae50433a20363845f43042d8d81b1aa',
-        response: {
-          status: 200,
-          body: '{"name":"MetaMask","lei":"254900OPPU84GM83MG36","email":"example@example.com","message":"This is a test message","isVerified":false}',
-        },
-      });
-
       const response = await sendTransaction({
-        to: '0xdac83f876ae50433a20363845f43042d8d81b1aa',
-        value: '0x0',
-        data: '0x',
-        gasLimit: '0x5208',
-        maxFeePerGas: '0x5208',
-        maxPriorityFeePerGas: '0x5208',
-        nonce: '0x0',
+        to: recipientAddress,
       });
 
-      expect(response).toRender(
+      await expect(response).toRender(
         panel([
           text(
             '⚠️ Information provided by the address owner was not verified. Make sure you trust this address.',
@@ -66,31 +84,26 @@ describe('onTransaction handler tests', () => {
           text('Message: **This is a test message**'),
         ]),
       );
-
-      unmock();
     });
   });
 
   describe('when the address is found and is verified', () => {
+    beforeEach(async () => {
+      const responseBody = `{
+        "name":"MetaMask",
+        "lei":"254900OPPU84GM83MG36",
+        "email":"example@example.com",
+        "message":"This is a test message",
+        "isVerified":true
+      }`;
+
+      const setup = await setupTestEnvironment(responseBody);
+      sendTransaction = setup.sendTransaction;
+    });
+
     it('should handle outgoing transactions', async () => {
-      const { mock, sendTransaction } = await installSnap();
-
-      const { unmock } = await mock({
-        url: 'https://onchaintrust.vercel.app/api/getAddressInfo?address=0xdac83f876ae50433a20363845f43042d8d81b1aa',
-        response: {
-          status: 200,
-          body: '{"name":"MetaMask","lei":"254900OPPU84GM83MG36","email":"example@example.com","message":"This is a test message","isVerified":true}',
-        },
-      });
-
       const response = await sendTransaction({
-        to: '0xdac83f876ae50433a20363845f43042d8d81b1aa',
-        value: '0x0',
-        data: '0x',
-        gasLimit: '0x5208',
-        maxFeePerGas: '0x5208',
-        maxPriorityFeePerGas: '0x5208',
-        nonce: '0x0',
+        to: recipientAddress,
       });
 
       expect(response).toRender(
@@ -103,8 +116,6 @@ describe('onTransaction handler tests', () => {
           text('Message: **This is a test message**'),
         ]),
       );
-
-      unmock();
     });
   });
 });
