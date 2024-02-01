@@ -5,12 +5,13 @@ The OnChainTrust Snap brings Verified Smart Contract Owner information to the Tr
 Users can verify their addresses using the [OnChainTrust Dapp](https://app.onchaintrust.org)
 
 # Development
+
 ### Prerequisites
 
 - [MetaMask Flask](https://metamask.io/flask/)
   - ⚠️ You cannot have other versions of MetaMask installed
 - Nodejs `^18.16.0`.
-    - Once installed, you should also install [Yarn](http://yarnpkg.com/) with `npm i -g yarn` to make working with this repository easiest.
+  - Once installed, you should also install [Yarn](http://yarnpkg.com/) with `npm i -g yarn` to make working with this repository easiest.
 
 ## Installing
 
@@ -45,11 +46,13 @@ yarn workspace @onchaintrust/onchaintrust-snap serve
 ```
 
 ### Site
+
 ```bash
 yarn workspace site start
 ```
 
 ### All packages (Site + Snap)
+
 ```bash
 yarn start
 ```
@@ -60,14 +63,16 @@ yarn start
 # Dapp intergation Guide
 
 ### How to install
+
 From the dApp, issue the following RPC request to install the Snap, make sure it is using the latest version
+
 ```javascript
 provider.request({
   method: 'wallet_requestSnaps',
   params: {
-    ["npm:@onchaintrust/onchaintrust-snap"]: { version: "1.0.0"}, //Snap's version
+    ['npm:@onchaintrust/onchaintrust-snap']: { version: '1.0.0' }, //Snap's version
   },
-})
+});
 ```
 
 ### Releasing & Publishing

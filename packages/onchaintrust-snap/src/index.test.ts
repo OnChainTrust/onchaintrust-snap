@@ -11,7 +11,7 @@ describe('onTransaction handler tests', () => {
         response: {
           status: 200,
           body: '{}',
-        }
+        },
       });
 
       const response = await sendTransaction({
@@ -41,7 +41,7 @@ describe('onTransaction handler tests', () => {
         response: {
           status: 200,
           body: '{"name":"MetaMask","lei":"254900OPPU84GM83MG36","email":"example@example.com","message":"This is a test message","isVerified":false}',
-        }
+        },
       });
 
       const response = await sendTransaction({
@@ -56,12 +56,14 @@ describe('onTransaction handler tests', () => {
 
       expect(response).toRender(
         panel([
-          text('⚠️ Information provided by the address owner was not verified. Make sure you trust this address.'),
+          text(
+            '⚠️ Information provided by the address owner was not verified. Make sure you trust this address.',
+          ),
           divider(),
           heading('MetaMask'),
           text('LEI: **254900OPPU84GM83MG36**'),
           text('Email: **example@example.com**'),
-          text('Message: **This is a test message**')
+          text('Message: **This is a test message**'),
         ]),
       );
 
@@ -78,7 +80,7 @@ describe('onTransaction handler tests', () => {
         response: {
           status: 200,
           body: '{"name":"MetaMask","lei":"254900OPPU84GM83MG36","email":"example@example.com","message":"This is a test message","isVerified":true}',
-        }
+        },
       });
 
       const response = await sendTransaction({
@@ -98,8 +100,8 @@ describe('onTransaction handler tests', () => {
           heading('MetaMask'),
           text('LEI: **254900OPPU84GM83MG36**'),
           text('Email: **example@example.com**'),
-          text('Message: **This is a test message**')
-        ])
+          text('Message: **This is a test message**'),
+        ]),
       );
 
       unmock();
