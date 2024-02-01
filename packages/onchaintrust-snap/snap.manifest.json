@@ -7,12 +7,12 @@
     "url": "https://github.com/OnChainTrust/onchaintrust-snap.git"
   },
   "source": {
-    "shasum": "ylO5t7+0EkZo0hGFWWaNflkwYa+QVxlsCEEzgepNzsU=",
+    "shasum": "TAM55weywLds20cugcU/f+pUnR7vFbzoL0RNsYlwwBM=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "onchaintrust",
+        "packageName": "@onchaintrust/onchaintrust-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }

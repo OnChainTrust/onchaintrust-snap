@@ -1,38 +1,79 @@
-# @metamask/template-snap-monorepo
+# OnChainTrust Snap
 
-This repository demonstrates how to develop a snap with TypeScript. For detailed instructions, see [the MetaMask documentation](https://docs.metamask.io/guide/snaps.html#serving-a-snap-to-your-local-environment).
+The OnChainTrust Snap brings Verified Smart Contract Owner information to the Transaction Confirmation Screen. Users can easily verify that they are interacting with a smart contract associated with a legitimate legal entity that has undergone KYB-verification.
 
-MetaMask Snaps is a system that allows anyone to safely expand the capabilities of MetaMask. A _snap_ is a program that we run in an isolated environment that can customize the wallet experience.
+Users can verify their addresses using the [OnChainTrust Dapp](https://app.onchaintrust.org)
 
-## Snaps is pre-release software
+# Development
 
-To interact with (your) Snaps, you will need to install [MetaMask Flask](https://metamask.io/flask/), a canary distribution for developers that provides access to upcoming features.
+### Prerequisites
 
-## Getting Started
+- [MetaMask Flask](https://metamask.io/flask/)
+  - ⚠️ You cannot have other versions of MetaMask installed
+- Nodejs `^18.16.0`.
+  - Once installed, you should also install [Yarn](http://yarnpkg.com/) with `npm i -g yarn` to make working with this repository easiest.
 
-Clone the template-snap repository [using this template](https://github.com/MetaMask/template-snap-monorepo/generate) and setup the development environment:
+## Installing
 
-```shell
+```bash
 yarn install && yarn start
 ```
-
-## Cloning
-
-This repository contains GitHub Actions that you may find useful, see `.github/workflows` and [Releasing & Publishing](https://github.com/MetaMask/template-snap-monorepo/edit/main/README.md#releasing--publishing) below for more information.
-
-If you clone or create this repository outside the MetaMask GitHub organization, you probably want to run `./scripts/cleanup.sh` to remove some files that will not work properly outside the MetaMask GitHub organization.
-
-Note that the `action-publish-release.yml` workflow contains a step that publishes the frontend of this snap (contained in the `public/` directory) to GitHub pages. If you do not want to publish the frontend to GitHub pages, simply remove the step named "Publish to GitHub Pages" in that workflow.
-
-If you don't wish to use any of the existing GitHub actions in this repository, simply delete the `.github/workflows` directory.
-
-## Contributing
 
 ### Testing and Linting
 
 Run `yarn test` to run the tests once.
 
 Run `yarn lint` to run the linter, or run `yarn lint:fix` to run the linter and fix any automatically fixable issues.
+
+## Running
+
+### Snap
+
+⚠️ When snap updates you will need to still reconnect from the dapp to see changes
+
+```bash
+# Running Snap via watch mode
+yarn workspace @onchaintrust/onchaintrust-snap watch
+```
+
+Alternatively you can build and serve the snap manually. This can sometimes be more stable than watch mode but requires
+a manual rebuild and serve anytime there is a change on the snap.
+
+```bash
+# Building and serving snap manually
+yarn workspace @onchaintrust/onchaintrust-snap build
+yarn workspace @onchaintrust/onchaintrust-snap serve
+```
+
+### Site
+
+```bash
+yarn workspace site start
+```
+
+### All packages (Site + Snap)
+
+```bash
+yarn start
+```
+
+- Snap server and debug page: http://localhost:8080/
+- Site dapp: http://localhost:3000/
+
+# Dapp intergation Guide
+
+### How to install
+
+From the dApp, issue the following RPC request to install the Snap, make sure it is using the latest version
+
+```javascript
+provider.request({
+  method: 'wallet_requestSnaps',
+  params: {
+    ['npm:@onchaintrust/onchaintrust-snap']: { version: '1.0.0' }, //Snap's version
+  },
+});
+```
 
 ### Releasing & Publishing
 
@@ -72,7 +113,10 @@ The project follows the same release process as the other libraries in the MetaM
 - Use `npm publish --dry-run` to examine the release contents to ensure the correct files are included. Compare to previous releases if necessary (e.g. using `https://unpkg.com/browse/[package name]@[package version]/`).
 - Once you are confident the release contents are correct, publish the release using `npm publish`.
 
-## Notes
+# Licence
 
-- Babel is used for transpiling TypeScript to JavaScript, so when building with the CLI,
-  `transpilationMode` must be set to `localOnly` (default) or `localAndDeps`.
+This project is licensed under Apache 2.0 terms:
+
+- Apache License, Version 2.0, (LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0)
+
+Copyright (c) 2024 OnChainTrust.
