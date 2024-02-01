@@ -1,0 +1,10 @@
+packages/site/
+.yarn/
+.eslintcache
+.eslintignore
+.eslintrc.js
+.prettierrc.js
+.editorconfig
+.github/
+.vscode/
+scripts/
