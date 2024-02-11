@@ -6,7 +6,7 @@ export const onTransaction: OnTransactionHandler = async ({
   // transactionOrigin,
   transaction,
 }) => {
-  const uri = `https://onchaintrust.vercel.app/api/getAddressInfo?address=${transaction.to}`;
+  const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}`;
   const recipientInformation: { [key: string]: string } = await global
     .fetch(uri)
     .then((res) => {
@@ -17,14 +17,10 @@ export const onTransaction: OnTransactionHandler = async ({
     })
     .catch((err) => console.error(err));
 
-  const companyName = recipientInformation.name;
-  const { lei } = recipientInformation;
-  const { email } = recipientInformation;
-  const { message } = recipientInformation;
-  const { isVerified } = recipientInformation;
+  const { name, lei, email, message, isVerified } = recipientInformation;
 
   const panelContent = [];
-  if (!companyName && !lei && !email && !message) {
+  if (!name && !lei && !email && !message) {
     panelContent.push(text('⛔️ No information found for this address ⛔️'));
   } else {
     if (isVerified) {
@@ -37,8 +33,8 @@ export const onTransaction: OnTransactionHandler = async ({
       );
     }
     panelContent.push(divider());
-    if (companyName) {
-      panelContent.push(heading(companyName));
+    if (name) {
+      panelContent.push(heading(name));
     }
 
     if (lei) {

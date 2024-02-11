@@ -1,7 +1,6 @@
 {
   "name": "onchaintrust-snap",
   "version": "0.1.0",
-  "private": false,
   "description": "",
   "homepage": "https://github.com/OnChainTrust/onchaintrust-snap#readme",
   "bugs": {
