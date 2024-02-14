@@ -3,7 +3,7 @@ import { divider, heading, panel, text } from '@metamask/snaps-ui';
 
 describe('onTransaction handler tests', () => {
   const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa';
-  const apiUri = `https://onchaintrust.vercel.app/api/getAddressInfo?address=${recipientAddress}`;
+  const apiUri = `https://app.onchaintrust.org/api/getAddressInfo?address=${recipientAddress}`;
 
   /**
    * Sets up the test environment for the onTransaction handler.
@@ -42,7 +42,7 @@ describe('onTransaction handler tests', () => {
       sendTransaction = setup.sendTransaction;
     });
 
-    it('should handle outgoing transactions', async () => {
+    it('should display "no information found" message', async () => {
       const response = await sendTransaction({
         to: recipientAddress,
       });
@@ -67,7 +67,7 @@ describe('onTransaction handler tests', () => {
       sendTransaction = setup.sendTransaction;
     });
 
-    it('should handle outgoing transactions', async () => {
+    it('should display correct information', async () => {
       const response = await sendTransaction({
         to: recipientAddress,
       });
@@ -101,7 +101,7 @@ describe('onTransaction handler tests', () => {
       sendTransaction = setup.sendTransaction;
     });
 
-    it('should handle outgoing transactions', async () => {
+    it('should display correct information', async () => {
       const response = await sendTransaction({
         to: recipientAddress,
       });
