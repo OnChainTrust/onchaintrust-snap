@@ -26,8 +26,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@metamask/snaps-types": "^2.0.0",
-    "@metamask/snaps-ui": "^2.0.0",
+    "@metamask/snaps-sdk": "^2.0.0",
     "buffer": "^6.0.3"
   },
   "devDependencies": {

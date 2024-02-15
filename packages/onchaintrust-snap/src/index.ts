@@ -1,5 +1,4 @@
-import { OnTransactionHandler } from '@metamask/snaps-types';
-import { heading, panel, text, divider } from '@metamask/snaps-ui';
+import { OnTransactionHandler, heading, panel, text, divider } from '@metamask/snaps-sdk';
 
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
