@@ -40,7 +40,7 @@ describe('onTransaction handler tests', () => {
     }
   });
 
-  describe('when UI definition is returned by the frontend', () => {
+  describe('when UI definition is returned by the backend', () => {
     beforeEach(async () => {
       const responseBody = `[
         {"type":"heading","value":"Title of the panel"},
