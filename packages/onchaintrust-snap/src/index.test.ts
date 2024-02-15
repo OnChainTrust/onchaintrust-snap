@@ -1,5 +1,12 @@
 import { installSnap } from '@metamask/snaps-jest';
-import { copyable, divider, heading, panel, text, image } from '@metamask/snaps-sdk';
+import {
+  copyable,
+  divider,
+  heading,
+  panel,
+  text,
+  image,
+} from '@metamask/snaps-sdk';
 
 describe('onTransaction handler tests', () => {
   const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa'; // A random address
@@ -36,14 +43,12 @@ describe('onTransaction handler tests', () => {
   describe('when UI definition is returned by the frontend', () => {
     beforeEach(async () => {
       const responseBody = `[
-        {"type": "panel", "value": [
-          {"type": "heading", "value": "Title of the panel"},
-          {"type": "image", "value": "<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>"}
-          {"type": "copyable", "value": "Text to be copied"},
-          {"type": "text", "value": "Text before the divider"},
-          {"type": "divider"},
-          {"type": "text", "value": "Text after the divider"},
-        ]}
+        {"type":"heading","value":"Title of the panel"},
+        {"type":"image","value":"<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>"},
+        {"type":"copyable","value":"Text to be copied"},
+        {"type":"text","value":"Text before the divider"},
+        {"type":"divider"},
+        {"type":"text","value":"Text after the divider"}
       ]`;
 
       const setup = await setupTestEnvironment(responseBody);
@@ -58,7 +63,9 @@ describe('onTransaction handler tests', () => {
       expect(response).toRender(
         panel([
           heading('Title of the panel'),
-          image('<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>'),
+          image(
+            "<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>",
+          ),
           copyable('Text to be copied'),
           text('Text before the divider'),
           divider(),
