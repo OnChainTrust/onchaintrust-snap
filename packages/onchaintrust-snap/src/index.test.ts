@@ -1,8 +1,15 @@
 import { installSnap } from '@metamask/snaps-jest';
-import { divider, heading, panel, text } from '@metamask/snaps-ui';
+import {
+  copyable,
+  divider,
+  heading,
+  panel,
+  text,
+  image,
+} from '@metamask/snaps-sdk';
 
 describe('onTransaction handler tests', () => {
-  const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa';
+  const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa'; // A random address
   const apiUri = `https://app.onchaintrust.org/api/getAddressInfo?address=${recipientAddress}`;
 
   /**
@@ -28,92 +35,41 @@ describe('onTransaction handler tests', () => {
   let unmock: () => Promise<void>;
 
   afterEach(async () => {
-    // Clean up the mock after each test.
     if (unmock) {
       await unmock();
     }
   });
 
-  describe('when the address is not found', () => {
+  describe('when UI definition is returned by the backend', () => {
     beforeEach(async () => {
-      const responseBody = '{}';
+      const responseBody = `[
+        {"type":"heading","value":"Title of the panel"},
+        {"type":"image","value":"<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>"},
+        {"type":"copyable","value":"Text to be copied"},
+        {"type":"text","value":"Text before the divider"},
+        {"type":"divider"},
+        {"type":"text","value":"Text after the divider"}
+      ]`;
 
       const setup = await setupTestEnvironment(responseBody);
       sendTransaction = setup.sendTransaction;
     });
 
-    it('should display "no information found" message', async () => {
+    it('should display UI components correctly', async () => {
       const response = await sendTransaction({
         to: recipientAddress,
       });
 
       expect(response).toRender(
-        panel([text('⛔️ No information found for this address ⛔️')]),
-      );
-    });
-  });
-
-  describe('when the address is found and is not verified', () => {
-    beforeEach(async () => {
-      const responseBody = `{
-        "name":"MetaMask",
-        "lei":"254900OPPU84GM83MG36",
-        "email":"example@example.com",
-        "message":"This is a test message",
-        "isVerified":false
-      }`;
-
-      const setup = await setupTestEnvironment(responseBody);
-      sendTransaction = setup.sendTransaction;
-    });
-
-    it('should display correct information', async () => {
-      const response = await sendTransaction({
-        to: recipientAddress,
-      });
-
-      await expect(response).toRender(
         panel([
-          text(
-            '⚠️ Information provided by the address owner was not verified. Make sure you trust this address.',
+          heading('Title of the panel'),
+          image(
+            "<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>",
           ),
+          copyable('Text to be copied'),
+          text('Text before the divider'),
           divider(),
-          heading('MetaMask'),
-          text('LEI: **254900OPPU84GM83MG36**'),
-          text('Email: **example@example.com**'),
-          text('Message: **This is a test message**'),
-        ]),
-      );
-    });
-  });
-
-  describe('when the address is found and is verified', () => {
-    beforeEach(async () => {
-      const responseBody = `{
-        "name":"MetaMask",
-        "lei":"254900OPPU84GM83MG36",
-        "email":"example@example.com",
-        "message":"This is a test message",
-        "isVerified":true
-      }`;
-
-      const setup = await setupTestEnvironment(responseBody);
-      sendTransaction = setup.sendTransaction;
-    });
-
-    it('should display correct information', async () => {
-      const response = await sendTransaction({
-        to: recipientAddress,
-      });
-
-      expect(response).toRender(
-        panel([
-          text('✅ Verified address ✅'),
-          divider(),
-          heading('MetaMask'),
-          text('LEI: **254900OPPU84GM83MG36**'),
-          text('Email: **example@example.com**'),
-          text('Message: **This is a test message**'),
+          text('Text after the divider'),
         ]),
       );
     });

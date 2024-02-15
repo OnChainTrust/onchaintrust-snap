@@ -1,5 +1,12 @@
-import { OnTransactionHandler } from '@metamask/snaps-types';
-import { heading, panel, text, divider } from '@metamask/snaps-ui';
+import {
+  OnTransactionHandler,
+  heading,
+  panel,
+  text,
+  divider,
+  copyable,
+  image,
+} from '@metamask/snaps-sdk';
 
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
@@ -7,7 +14,10 @@ export const onTransaction: OnTransactionHandler = async ({
   transaction,
 }) => {
   const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}`;
-  const recipientInformation: { [key: string]: string } = await global
+
+  type ElementDefinition = { type: string; value: string | undefined };
+
+  const uiDefinition: ElementDefinition[] = await global
     .fetch(uri)
     .then((res) => {
       if (!res.ok) {
@@ -17,39 +27,41 @@ export const onTransaction: OnTransactionHandler = async ({
     })
     .catch((err) => console.error(err));
 
-  const { name, lei, email, message, isVerified } = recipientInformation;
+  const uiElements = uiDefinition.reduce(
+    (acc: any[], element: ElementDefinition) => {
+      switch (element.type) {
+        case 'heading':
+          if (element.value) {
+            acc.push(heading(element.value));
+          }
+          break;
+        case 'text':
+          if (element.value) {
+            acc.push(text(element.value));
+          }
+          break;
+        case 'divider':
+          acc.push(divider());
+          break;
+        case 'copyable':
+          if (element.value) {
+            acc.push(copyable(element.value));
+          }
+          break;
+        case 'image':
+          if (element.value) {
+            acc.push(image(element.value || ''));
+          }
+          break;
+        default:
+          break;
+      }
+      return acc;
+    },
+    [],
+  );
 
-  const panelContent = [];
-  if (!name && !lei && !email && !message) {
-    panelContent.push(text('⛔️ No information found for this address ⛔️'));
-  } else {
-    if (isVerified) {
-      panelContent.push(text('✅ Verified address ✅'));
-    } else {
-      panelContent.push(
-        text(
-          '⚠️ Information provided by the address owner was not verified. Make sure you trust this address.',
-        ),
-      );
-    }
-    panelContent.push(divider());
-    if (name) {
-      panelContent.push(heading(name));
-    }
-
-    if (lei) {
-      panelContent.push(text(`LEI: **${lei}**`));
-    }
-
-    if (email) {
-      panelContent.push(text(`Email: **${email}**`));
-    }
-
-    if (message) {
-      panelContent.push(text(`Message: **${message}**`));
-    }
-  }
   return {
-    content: panel(panelContent),
+    content: panel(uiElements),
   };
 };
