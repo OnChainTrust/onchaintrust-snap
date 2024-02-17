@@ -14,7 +14,7 @@ export const onTransaction: OnTransactionHandler = async ({
   transactionOrigin,
   transaction,
 }) => {
-  const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}&origin=${transactionOrigin}`;
+  const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}&origin=${transactionOrigin}&client=metamask`;
 
   type ElementDefinition = { type: string; value: string | undefined };
 

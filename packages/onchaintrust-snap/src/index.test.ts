@@ -10,7 +10,7 @@ import {
 
 describe('onTransaction handler tests', () => {
   const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa'; // A random address
-  const apiUri = `https://app.onchaintrust.org/api/getAddressInfo?address=${recipientAddress}`;
+  const apiUri = `https://app.onchaintrust.org/api/getAddressInfo?address=${recipientAddress}&origin=https://example.com&client=metamask`;
 
   /**
    * Sets up the test environment for the onTransaction handler.
@@ -58,6 +58,7 @@ describe('onTransaction handler tests', () => {
     it('should display UI components correctly', async () => {
       const response = await sendTransaction({
         to: recipientAddress,
+        origin: 'https://example.com',
       });
 
       expect(response).toRender(
