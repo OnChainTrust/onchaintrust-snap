@@ -7,13 +7,14 @@ import {
   copyable,
   image,
 } from '@metamask/snaps-sdk';
+import { UiElement } from './ui-elements';
 
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
-  // transactionOrigin,
+  transactionOrigin,
   transaction,
 }) => {
-  const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}`;
+  const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}&origin=${transactionOrigin}&client=metamask`;
 
   type ElementDefinition = { type: string; value: string | undefined };
 
@@ -27,8 +28,8 @@ export const onTransaction: OnTransactionHandler = async ({
     })
     .catch((err) => console.error(err));
 
-  const uiElements = uiDefinition.reduce(
-    (acc: any[], element: ElementDefinition) => {
+  const uiElements: UiElement[] = uiDefinition.reduce(
+    (acc: UiElement[], element: ElementDefinition) => {
       switch (element.type) {
         case 'heading':
           if (element.value) {
