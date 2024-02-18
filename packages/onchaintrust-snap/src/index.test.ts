@@ -16,8 +16,12 @@ describe('onTransaction handler tests', () => {
    * Sets up the test environment for the onTransaction handler.
    *
    * @param responseBody - The response body to return from the mock.
+   * @param statusCode - The status code to return from the mock.
    */
-  async function setupTestEnvironment(responseBody: string | undefined, statusCode = 200) {
+  async function setupTestEnvironment(
+    responseBody: string | undefined,
+    statusCode = 200,
+  ) {
     const { mock, sendTransaction: localSendTransaction } = await installSnap();
 
     const mockSetup = await mock({
@@ -93,7 +97,7 @@ describe('onTransaction handler tests', () => {
       expect(response).toRender(
         panel([
           heading('Error'),
-          text('An error occurred, please try again later')
+          text('An error occurred, please try again later'),
         ]),
       );
     });
