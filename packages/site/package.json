@@ -29,7 +29,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
-    "styled-components": "5.3.11"
+    "styled-components": "6.1.8"
   },
   "devDependencies": {
     "@metamask/eslint-config": "^10.0.0",
@@ -56,7 +56,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "gatsby": "^4.25.8",
     "gatsby-plugin-manifest": "^4.25.0",
-    "gatsby-plugin-styled-components": "^5.25.0",
+    "gatsby-plugin-styled-components": "^6.13.1",
     "gatsby-plugin-svgr": "^3.0.0-beta.0",
     "prettier": "^2.8.8",
     "prettier-plugin-packagejson": "^2.4.11",
