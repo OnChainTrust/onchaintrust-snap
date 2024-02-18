@@ -5,14 +5,12 @@ import {
   connectSnap,
   getSnap,
   isLocalSnap,
-  sendHello,
   shouldDisplayReconnectButton,
 } from '../utils';
 import {
   ConnectButton,
   InstallFlaskButton,
   ReconnectButton,
-  SendHelloButton,
   Card,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
@@ -123,22 +121,13 @@ const Index = () => {
     }
   };
 
-  const handleSendHelloClick = async () => {
-    try {
-      await sendHello();
-    } catch (e) {
-      console.error(e);
-      dispatch({ type: MetamaskActions.SetError, payload: e });
-    }
-  };
-
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        Welcome to <Span>OnChainTrust Snap</Span>
       </Heading>
       <Subtitle>
-        Get started by editing <code>src/index.ts</code>
+        Use this website to (re-)install the snap for local develoment
       </Subtitle>
       <CardContainer>
         {state.error && (
@@ -171,6 +160,7 @@ const Index = () => {
               ),
             }}
             disabled={!isMetaMaskReady}
+            fullWidth
           />
         )}
         {shouldDisplayReconnectButton(state.installedSnap) && (
@@ -187,27 +177,9 @@ const Index = () => {
               ),
             }}
             disabled={!state.installedSnap}
+            fullWidth
           />
         )}
-        <Card
-          content={{
-            title: 'Send Hello message',
-            description:
-              'Display a custom message within a confirmation screen in MetaMask.',
-            button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick}
-                disabled={!state.installedSnap}
-              />
-            ),
-          }}
-          disabled={!state.installedSnap}
-          fullWidth={
-            isMetaMaskReady &&
-            Boolean(state.installedSnap) &&
-            !shouldDisplayReconnectButton(state.installedSnap)
-          }
-        />
         <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}
