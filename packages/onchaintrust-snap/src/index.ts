@@ -26,7 +26,13 @@ export const onTransaction: OnTransactionHandler = async ({
       }
       return res.json();
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      return [
+        { type: 'heading', value: 'Error' },
+        { type: 'text', value: 'An error occurred, please try again later' },
+      ];
+    });
 
   const uiElements: UiElement[] = uiDefinition.reduce(
     (acc: UiElement[], element: ElementDefinition) => {
