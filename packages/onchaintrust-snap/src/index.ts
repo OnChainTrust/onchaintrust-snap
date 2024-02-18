@@ -6,6 +6,7 @@ import {
   divider,
   copyable,
   image,
+  Panel,
 } from '@metamask/snaps-sdk';
 import { UiElement } from './ui-elements';
 
@@ -18,7 +19,7 @@ export const onTransaction: OnTransactionHandler = async ({
 
   type ElementDefinition = { type: string; value: string | undefined };
 
-  const uiDefinition: ElementDefinition[] = await global
+  const apiResponse : { ui: ElementDefinition[], severity?: string } = await global
     .fetch(uri)
     .then((res) => {
       if (!res.ok) {
@@ -28,13 +29,15 @@ export const onTransaction: OnTransactionHandler = async ({
     })
     .catch((err) => {
       console.error(err);
-      return [
-        { type: 'heading', value: 'Error' },
-        { type: 'text', value: 'An error occurred, please try again later' },
-      ];
+      return {
+        ui: [
+          { type: 'heading', value: 'Error' },
+          { type: 'text', value: 'An error occurred, please try again later' },
+        ]
+      };
     });
 
-  const uiElements: UiElement[] = uiDefinition.reduce(
+  const uiElements: UiElement[] = apiResponse.ui.reduce(
     (acc: UiElement[], element: ElementDefinition) => {
       switch (element.type) {
         case 'heading':
@@ -68,7 +71,13 @@ export const onTransaction: OnTransactionHandler = async ({
     [],
   );
 
-  return {
-    content: panel(uiElements),
+  const result: { content: Panel, severity?: "critical" | undefined } = {
+    content: panel(uiElements)
   };
+
+  if (apiResponse.severity === 'critical') {
+    result.severity = apiResponse.severity;
+  }
+
+  return result;
 };

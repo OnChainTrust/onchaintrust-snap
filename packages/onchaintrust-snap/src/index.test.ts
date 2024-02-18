@@ -46,14 +46,17 @@ describe('onTransaction handler tests', () => {
 
   describe('when UI definition is returned by the backend', () => {
     beforeEach(async () => {
-      const responseBody = `[
-        {"type":"heading","value":"Title of the panel"},
-        {"type":"image","value":"<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>"},
-        {"type":"copyable","value":"Text to be copied"},
-        {"type":"text","value":"Text before the divider"},
-        {"type":"divider"},
-        {"type":"text","value":"Text after the divider"}
-      ]`;
+      const responseBody = `{
+        "ui":[
+          {"type":"heading","value":"Title of the panel"},
+          {"type":"image","value":"<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>"},
+          {"type":"copyable","value":"Text to be copied"},
+          {"type":"text","value":"Text before the divider"},
+          {"type":"divider"},
+          {"type":"text","value":"Text after the divider"}
+        ],
+        "severity":"info"
+      }`;
 
       const setup = await setupTestEnvironment(responseBody);
       sendTransaction = setup.sendTransaction;
