@@ -2922,7 +2922,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/is-prop-valid@npm:^0.8.2, @emotion/is-prop-valid@npm:^0.8.8":
+"@emotion/is-prop-valid@npm:^0.8.2":
   version: 0.8.8
   resolution: "@emotion/is-prop-valid@npm:0.8.8"
   dependencies:
@@ -2931,7 +2931,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/is-prop-valid@npm:^1.2.1":
+"@emotion/is-prop-valid@npm:^1.1.0, @emotion/is-prop-valid@npm:^1.2.1":
   version: 1.2.1
   resolution: "@emotion/is-prop-valid@npm:1.2.1"
   dependencies:
@@ -3930,7 +3930,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lavamoat/allow-scripts@npm:^2.0.3":
+"@lavamoat/allow-scripts@npm:^2.5.1":
   version: 2.5.1
   resolution: "@lavamoat/allow-scripts@npm:2.5.1"
   dependencies:
@@ -4080,7 +4080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/auto-changelog@npm:^2.6.0":
+"@metamask/auto-changelog@npm:^2.6.1":
   version: 2.6.1
   resolution: "@metamask/auto-changelog@npm:2.6.1"
   dependencies:
@@ -4402,7 +4402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/providers@npm:^9.0.0":
+"@metamask/providers@npm:^9.1.0":
   version: 9.1.0
   resolution: "@metamask/providers@npm:9.1.0"
   dependencies:
@@ -4463,7 +4463,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-cli@npm:^2.0.1":
+"@metamask/snaps-cli@npm:^2.0.2":
   version: 2.0.2
   resolution: "@metamask/snaps-cli@npm:2.0.2"
   dependencies:
@@ -4652,17 +4652,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-sdk@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@metamask/snaps-sdk@npm:2.0.0"
+"@metamask/snaps-sdk@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@metamask/snaps-sdk@npm:2.1.0"
   dependencies:
     "@metamask/key-tree": ^9.0.0
     "@metamask/providers": ^14.0.2
     "@metamask/rpc-errors": ^6.1.0
     "@metamask/utils": ^8.3.0
-    is-svg: ^4.4.0
+    fast-xml-parser: ^4.3.4
     superstruct: ^1.0.3
-  checksum: af13dde4054a46ed5f827db641168a04039d11927f763134a5ce4fe81d57a3783b4739a252b642d8bdf03c0c5bb6146583b705e3dbf3866d23e1c188cea91d3b
+  checksum: 09cfc8b6f51b5895599474bfc9a6a36bef9a078ed3796d3db94dcf9abcc6d5e0c06d9e48193506ef5b757d8b9358877163cfe20c85442cc6986c2759975f2bac
   languageName: node
   linkType: hard
 
@@ -5108,33 +5108,33 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@onchaintrust/onchaintrust-snap@workspace:packages/onchaintrust-snap"
   dependencies:
-    "@jest/globals": ^29.5.0
-    "@lavamoat/allow-scripts": ^2.0.3
-    "@metamask/auto-changelog": ^2.6.0
+    "@jest/globals": ^29.7.0
+    "@lavamoat/allow-scripts": ^2.5.1
+    "@metamask/auto-changelog": ^2.6.1
     "@metamask/eslint-config": ^10.0.0
     "@metamask/eslint-config-jest": ^10.0.0
     "@metamask/eslint-config-nodejs": ^10.0.0
     "@metamask/eslint-config-typescript": ^10.0.0
-    "@metamask/snaps-cli": ^2.0.1
+    "@metamask/snaps-cli": ^2.0.2
     "@metamask/snaps-jest": ^4.0.1
-    "@metamask/snaps-sdk": ^2.0.0
-    "@typescript-eslint/eslint-plugin": ^5.33.0
-    "@typescript-eslint/parser": ^5.33.0
+    "@metamask/snaps-sdk": ^2.1.0
+    "@typescript-eslint/eslint-plugin": ^5.62.0
+    "@typescript-eslint/parser": ^5.62.0
     buffer: ^6.0.3
-    eslint: ^8.21.0
-    eslint-config-prettier: ^8.1.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.8.2
-    eslint-plugin-jsdoc: ^39.2.9
+    eslint: ^8.56.0
+    eslint-config-prettier: ^8.10.0
+    eslint-plugin-import: ^2.29.1
+    eslint-plugin-jest: ^26.9.0
+    eslint-plugin-jsdoc: ^39.9.1
     eslint-plugin-node: ^11.1.0
     eslint-plugin-prettier: ^4.2.1
-    jest: ^29.5.0
-    prettier: ^2.2.1
-    prettier-plugin-packagejson: ^2.2.11
+    jest: ^29.7.0
+    prettier: ^2.8.8
+    prettier-plugin-packagejson: ^2.4.11
     rimraf: ^3.0.2
     through2: ^4.0.2
-    ts-jest: ^29.1.0
-    typescript: ^4.7.4
+    ts-jest: ^29.1.2
+    typescript: ^4.9.5
   languageName: unknown
   linkType: soft
 
@@ -6125,7 +6125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@svgr/webpack@npm:^6.4.0":
+"@svgr/webpack@npm:^6.5.1":
   version: 6.5.1
   resolution: "@svgr/webpack@npm:6.5.1"
   dependencies:
@@ -6315,7 +6315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^8.17.1, @testing-library/dom@npm:^8.5.0":
+"@testing-library/dom@npm:^8.20.1, @testing-library/dom@npm:^8.5.0":
   version: 8.20.1
   resolution: "@testing-library/dom@npm:8.20.1"
   dependencies:
@@ -6331,7 +6331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^5.16.4":
+"@testing-library/jest-dom@npm:^5.17.0":
   version: 5.17.0
   resolution: "@testing-library/jest-dom@npm:5.17.0"
   dependencies:
@@ -6348,7 +6348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^13.3.0":
+"@testing-library/react@npm:^13.4.0":
   version: 13.4.0
   resolution: "@testing-library/react@npm:13.4.0"
   dependencies:
@@ -6870,7 +6870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.6":
+"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.2.19":
   version: 18.2.19
   resolution: "@types/react-dom@npm:18.2.19"
   dependencies:
@@ -6879,7 +6879,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.15":
+"@types/react@npm:*":
   version: 18.2.55
   resolution: "@types/react@npm:18.2.55"
   dependencies:
@@ -6887,6 +6887,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: a8eb4fa77f73831b9112d4f11a7006217dc0740361649b9b0da3fd441d151a9cd415d5d68b91c0af4e430e063424d301c77489e5edaddc9f711c4e46cf9818a5
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^18.2.56":
+  version: 18.2.56
+  resolution: "@types/react@npm:18.2.56"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 8f6d754e4add007667002bd3f4c3a3a577c4a75afcd5cdc93bd3c584750f25c41a024a9f7de802204156483bc2fcce417ff9d7063ac1713e2b8ccb7c8a08c0ff
   languageName: node
   linkType: hard
 
@@ -6948,7 +6959,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-components@npm:^5.1.25":
+"@types/styled-components@npm:^5.1.34":
   version: 5.1.34
   resolution: "@types/styled-components@npm:5.1.34"
   dependencies:
@@ -7068,7 +7079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.33.0":
+"@typescript-eslint/eslint-plugin@npm:^5.62.0":
   version: 5.62.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.62.0"
   dependencies:
@@ -7125,7 +7136,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.33.0":
+"@typescript-eslint/parser@npm:^5.62.0":
   version: 5.62.0
   resolution: "@typescript-eslint/parser@npm:5.62.0"
   dependencies:
@@ -11764,7 +11775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.1.0":
+"eslint-config-prettier@npm:^8.10.0":
   version: 8.10.0
   resolution: "eslint-config-prettier@npm:8.10.0"
   peerDependencies:
@@ -11848,7 +11859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.26.0":
+"eslint-plugin-import@npm:^2.26.0, eslint-plugin-import@npm:^2.29.1":
   version: 2.29.1
   resolution: "eslint-plugin-import@npm:2.29.1"
   dependencies:
@@ -11875,7 +11886,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:^26.8.2":
+"eslint-plugin-jest@npm:^26.9.0":
   version: 26.9.0
   resolution: "eslint-plugin-jest@npm:26.9.0"
   dependencies:
@@ -11892,7 +11903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:^39.2.9":
+"eslint-plugin-jsdoc@npm:^39.9.1":
   version: 39.9.1
   resolution: "eslint-plugin-jsdoc@npm:39.9.1"
   dependencies:
@@ -12129,7 +12140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.21.0":
+"eslint@npm:^8.56.0":
   version: 8.56.0
   resolution: "eslint@npm:8.56.0"
   dependencies:
@@ -12660,7 +12671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-parser@npm:^4.1.3":
+"fast-xml-parser@npm:^4.1.3, fast-xml-parser@npm:^4.3.4":
   version: 4.3.4
   resolution: "fast-xml-parser@npm:4.3.4"
   dependencies:
@@ -13365,7 +13376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-manifest@npm:^4.24.0":
+"gatsby-plugin-manifest@npm:^4.25.0":
   version: 4.25.0
   resolution: "gatsby-plugin-manifest@npm:4.25.0"
   dependencies:
@@ -13402,7 +13413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-styled-components@npm:^5.24.0":
+"gatsby-plugin-styled-components@npm:^5.25.0":
   version: 5.25.0
   resolution: "gatsby-plugin-styled-components@npm:5.25.0"
   dependencies:
@@ -13529,7 +13540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby@npm:^4.24.4":
+"gatsby@npm:^4.25.8":
   version: 4.25.8
   resolution: "gatsby@npm:4.25.8"
   dependencies:
@@ -15980,7 +15991,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.5.0":
+"jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -18050,18 +18061,18 @@ __metadata:
     "@metamask/eslint-config-jest": ^10.0.0
     "@metamask/eslint-config-nodejs": ^10.0.0
     "@metamask/eslint-config-typescript": ^10.0.0
-    "@typescript-eslint/eslint-plugin": ^5.33.0
-    "@typescript-eslint/parser": ^5.33.0
-    eslint: ^8.21.0
-    eslint-config-prettier: ^8.1.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.8.2
-    eslint-plugin-jsdoc: ^39.2.9
+    "@typescript-eslint/eslint-plugin": ^5.62.0
+    "@typescript-eslint/parser": ^5.62.0
+    eslint: ^8.56.0
+    eslint-config-prettier: ^8.10.0
+    eslint-plugin-import: ^2.29.1
+    eslint-plugin-jest: ^26.9.0
+    eslint-plugin-jsdoc: ^39.9.1
     eslint-plugin-node: ^11.1.0
     eslint-plugin-prettier: ^4.2.1
-    prettier: ^2.2.1
-    prettier-plugin-packagejson: ^2.2.18
-    typescript: ^4.7.4
+    prettier: ^2.8.8
+    prettier-plugin-packagejson: ^2.4.11
+    typescript: ^4.9.5
   languageName: unknown
   linkType: soft
 
@@ -19109,9 +19120,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-packagejson@npm:^2.2.11, prettier-plugin-packagejson@npm:^2.2.18":
-  version: 2.4.10
-  resolution: "prettier-plugin-packagejson@npm:2.4.10"
+"prettier-plugin-packagejson@npm:^2.4.11":
+  version: 2.4.11
+  resolution: "prettier-plugin-packagejson@npm:2.4.11"
   dependencies:
     sort-package-json: 2.7.0
     synckit: 0.9.0
@@ -19120,11 +19131,11 @@ __metadata:
   peerDependenciesMeta:
     prettier:
       optional: true
-  checksum: d501bfbab1949b07fb26b402c523eab89243854ba36990f180415f624ebdb26d68e59fa72a7f1d735719fafd80e1dd0173cca2cc805b6b703afcf3788ccb1314
+  checksum: 3a7b44d2e8f781c604dbc26be510ed42665a24da792a72009c5030024fb7d61a199ec055e9b05ce5c92e4e3af706ce89b7486bafbc16a45a85ac3fb2f76b22ef
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.2.1":
+"prettier@npm:^2.8.8":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
   bin:
@@ -21024,37 +21035,37 @@ __metadata:
     "@metamask/eslint-config-jest": ^10.0.0
     "@metamask/eslint-config-nodejs": ^10.0.0
     "@metamask/eslint-config-typescript": ^10.0.0
-    "@metamask/providers": ^9.0.0
-    "@svgr/webpack": ^6.4.0
-    "@testing-library/dom": ^8.17.1
-    "@testing-library/jest-dom": ^5.16.4
-    "@testing-library/react": ^13.3.0
+    "@metamask/providers": ^9.1.0
+    "@svgr/webpack": ^6.5.1
+    "@testing-library/dom": ^8.20.1
+    "@testing-library/jest-dom": ^5.17.0
+    "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0
     "@types/jest": ^27.5.2
-    "@types/react": ^18.0.15
-    "@types/react-dom": ^18.0.6
-    "@types/styled-components": ^5.1.25
-    "@typescript-eslint/eslint-plugin": ^5.33.0
-    "@typescript-eslint/parser": ^5.33.0
-    eslint: ^8.21.0
-    eslint-config-prettier: ^8.1.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.8.2
-    eslint-plugin-jsdoc: ^39.2.9
+    "@types/react": ^18.2.56
+    "@types/react-dom": ^18.2.19
+    "@types/styled-components": ^5.1.34
+    "@typescript-eslint/eslint-plugin": ^5.62.0
+    "@typescript-eslint/parser": ^5.62.0
+    eslint: ^8.56.0
+    eslint-config-prettier: ^8.10.0
+    eslint-plugin-import: ^2.29.1
+    eslint-plugin-jest: ^26.9.0
+    eslint-plugin-jsdoc: ^39.9.1
     eslint-plugin-node: ^11.1.0
     eslint-plugin-prettier: ^4.2.1
-    gatsby: ^4.24.4
-    gatsby-plugin-manifest: ^4.24.0
-    gatsby-plugin-styled-components: ^5.24.0
+    gatsby: ^4.25.8
+    gatsby-plugin-manifest: ^4.25.0
+    gatsby-plugin-styled-components: ^5.25.0
     gatsby-plugin-svgr: ^3.0.0-beta.0
-    prettier: ^2.2.1
-    prettier-plugin-packagejson: ^2.2.18
+    prettier: ^2.8.8
+    prettier-plugin-packagejson: ^2.4.11
     react: ^18.2.0
     react-dom: ^18.2.0
     react-is: ^18.2.0
     rimraf: ^3.0.2
-    styled-components: 5.3.3
-    typescript: ^4.7.4
+    styled-components: 5.3.11
+    typescript: ^4.9.5
   languageName: unknown
   linkType: soft
 
@@ -21746,13 +21757,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-components@npm:5.3.3":
-  version: 5.3.3
-  resolution: "styled-components@npm:5.3.3"
+"styled-components@npm:5.3.11":
+  version: 5.3.11
+  resolution: "styled-components@npm:5.3.11"
   dependencies:
     "@babel/helper-module-imports": ^7.0.0
     "@babel/traverse": ^7.4.5
-    "@emotion/is-prop-valid": ^0.8.8
+    "@emotion/is-prop-valid": ^1.1.0
     "@emotion/stylis": ^0.8.4
     "@emotion/unitless": ^0.7.4
     babel-plugin-styled-components: ">= 1.12.0"
@@ -21764,7 +21775,7 @@ __metadata:
     react: ">= 16.8.0"
     react-dom: ">= 16.8.0"
     react-is: ">= 16.8.0"
-  checksum: a104341068fc39fa2c73950a34970d832dc7a511fc52b3df12f34e6746031f1f128f53b4d540bf39d9f0da043cf0d91517faf874d2c87de5e385f5c2e7620436
+  checksum: 10edd4dae3b0231ec02d86bdd09c88e894eedfa7e9d4f8e562b09fb69c67a27d586cbcf35c785002d59b3bf11e6c0940b0efce40d13ae9ed148b26b1dc8f3284
   languageName: node
   linkType: hard
 
@@ -22251,7 +22262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.1.0":
+"ts-jest@npm:^29.1.2":
   version: 29.1.2
   resolution: "ts-jest@npm:29.1.2"
   dependencies:
@@ -22535,7 +22546,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.7.4":
+"typescript@npm:^4.9.5":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -22545,7 +22556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=7ad353"
   bin:
