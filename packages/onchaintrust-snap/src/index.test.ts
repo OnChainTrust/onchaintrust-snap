@@ -17,13 +17,13 @@ describe('onTransaction handler tests', () => {
    *
    * @param responseBody - The response body to return from the mock.
    */
-  async function setupTestEnvironment(responseBody: string) {
+  async function setupTestEnvironment(responseBody: string | undefined, statusCode = 200) {
     const { mock, sendTransaction: localSendTransaction } = await installSnap();
 
     const mockSetup = await mock({
       url: apiUri,
       response: {
-        status: 200,
+        status: statusCode,
         body: responseBody,
       },
     });
@@ -71,6 +71,29 @@ describe('onTransaction handler tests', () => {
           text('Text before the divider'),
           divider(),
           text('Text after the divider'),
+        ]),
+      );
+    });
+  });
+
+  describe('when error happens while requesting the API', () => {
+    beforeEach(async () => {
+      const responseBody = undefined;
+
+      const setup = await setupTestEnvironment(responseBody, 500);
+      sendTransaction = setup.sendTransaction;
+    });
+
+    it('should display an error message', async () => {
+      const response = await sendTransaction({
+        to: recipientAddress,
+        origin: 'https://example.com',
+      });
+
+      expect(response).toRender(
+        panel([
+          heading('Error'),
+          text('An error occurred, please try again later')
         ]),
       );
     });
