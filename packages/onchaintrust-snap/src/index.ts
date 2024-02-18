@@ -19,23 +19,27 @@ export const onTransaction: OnTransactionHandler = async ({
 
   type ElementDefinition = { type: string; value: string | undefined };
 
-  const apiResponse : { ui: ElementDefinition[], severity?: string } = await global
-    .fetch(uri)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('Bad response from server');
-      }
-      return res.json();
-    })
-    .catch((err) => {
-      console.error(err);
-      return {
-        ui: [
-          { type: 'heading', value: 'Error' },
-          { type: 'text', value: 'An error occurred, please try again later' },
-        ]
-      };
-    });
+  const apiResponse: { ui: ElementDefinition[]; severity?: string } =
+    await global
+      .fetch(uri)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Bad response from server');
+        }
+        return res.json();
+      })
+      .catch((err) => {
+        console.error(err);
+        return {
+          ui: [
+            { type: 'heading', value: 'Error' },
+            {
+              type: 'text',
+              value: 'An error occurred, please try again later',
+            },
+          ],
+        };
+      });
 
   const uiElements: UiElement[] = apiResponse.ui.reduce(
     (acc: UiElement[], element: ElementDefinition) => {
@@ -71,8 +75,8 @@ export const onTransaction: OnTransactionHandler = async ({
     [],
   );
 
-  const result: { content: Panel, severity?: "critical" | undefined } = {
-    content: panel(uiElements)
+  const result: { content: Panel; severity?: 'critical' | undefined } = {
+    content: panel(uiElements),
   };
 
   if (apiResponse.severity === 'critical') {
