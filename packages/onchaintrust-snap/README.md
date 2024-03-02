@@ -1,11 +1,10 @@
 # OnChainTrust Snap
 
-This snap displays information about an Owner of Recipient Address / Smart Contract on Transaction Confirmation Screen.
-Recipient information could be of 3 types:
+The snap displays information about an Owner of a Recipient Address / Smart Contract on the Transaction Confirmation Screen.
 
-- Not provided
-- Provided, not verified
-- Provided, verified
+Additionally, it verifies safety of a transaction and provides protection against phishing and frontend attacks.
+
+All use cases could be found on the [How it Works](https://app.onchaintrust.org/how-it-works) page.
 
 ## Testing
 
