@@ -13,9 +13,18 @@ import { UiElement } from './types/ui-elements';
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
   transactionOrigin,
+  chainId,
   transaction,
 }) => {
-  const uri = `https://app.onchaintrust.org/api/getAddressInfo?address=${transaction.to}&origin=${transactionOrigin}&client=metamask`;
+  const baseUrl = 'http://app.onchaintrust.org/api/getAddressInfo';
+  const url = new URL(baseUrl);
+  url.search = new URLSearchParams({
+    address: transaction.to || '',
+    origin: transactionOrigin || '',
+    chain_id: chainId,
+    client: 'metamask',
+  }).toString();
+  const uri = url.toString();
 
   type ElementDefinition = { type: string; value: string | undefined };
 
