@@ -18,10 +18,10 @@ export const onTransaction: OnTransactionHandler = async ({
 }) => {
   const baseUrl = 'https://app.onchaintrust.org/api/getAddressInfo';
   const uri = new URL(baseUrl);
-  uri.searchParams.append("address", transaction.to || '');
-  uri.searchParams.append("origin", transactionOrigin || '');
-  uri.searchParams.append("chain_id", chainId);
-  uri.searchParams.append("client", 'metamask');
+  uri.searchParams.append('address', transaction.to || '');
+  uri.searchParams.append('origin', transactionOrigin || '');
+  uri.searchParams.append('chain_id', chainId);
+  uri.searchParams.append('client', 'metamask');
 
   type ElementDefinition = { type: string; value: string | undefined };
 
