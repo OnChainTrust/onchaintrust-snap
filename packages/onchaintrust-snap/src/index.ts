@@ -16,15 +16,12 @@ export const onTransaction: OnTransactionHandler = async ({
   chainId,
   transaction,
 }) => {
-  const baseUrl = 'http://app.onchaintrust.org/api/getAddressInfo';
-  const url = new URL(baseUrl);
-  url.search = new URLSearchParams({
-    address: transaction.to || '',
-    origin: transactionOrigin || '',
-    chain_id: chainId,
-    client: 'metamask',
-  }).toString();
-  const uri = url.toString();
+  const baseUrl = 'https://app.onchaintrust.org/api/getAddressInfo';
+  const uri = new URL(baseUrl);
+  uri.searchParams.append("address", transaction.to || '');
+  uri.searchParams.append("origin", transactionOrigin || '');
+  uri.searchParams.append("chain_id", chainId);
+  uri.searchParams.append("client", 'metamask');
 
   type ElementDefinition = { type: string; value: string | undefined };
 
