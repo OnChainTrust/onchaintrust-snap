@@ -8,7 +8,7 @@ import {
   image,
   Panel,
 } from '@metamask/snaps-sdk';
-import { UiElement } from './ui-elements';
+import { UiElement } from './types/ui-elements';
 
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
