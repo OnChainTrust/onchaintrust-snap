@@ -17,6 +17,7 @@ describe('onTransaction handler tests', () => {
    *
    * @param responseBody - The response body to return from the mock.
    * @param statusCode - The status code to return from the mock.
+   * @returns The sendTransaction function and the unmock function.
    */
   async function setupTestEnvironment(
     responseBody: string | undefined,
