@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snap-${{ runner.os }}-${{ github.sha }}
-          path: ./packages/snap/dist
+          path: ./packages/onchaintrust-snap/dist
           retention-days: 1
       - name: Require clean working directory
         shell: bash
@@ -75,7 +75,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: snap-${{ runner.os }}-${{ github.sha }}
-          path: ./packages/snap/dist
+          path: ./packages/onchaintrust-snap/dist
       - name: Run e2e tests
         run: yarn workspace snap run test
       - name: Require clean working directory
