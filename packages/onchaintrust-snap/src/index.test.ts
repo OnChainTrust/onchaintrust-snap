@@ -27,6 +27,7 @@ describe('onTransaction handler tests', () => {
 
     const mockSetup = await mock({
       url: apiUri,
+      partial: true,
       response: {
         status: statusCode,
         body: responseBody,
