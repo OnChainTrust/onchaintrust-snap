@@ -1,10 +1,5 @@
 import { installSnap } from '@metamask/snaps-jest';
-import {
-  heading,
-  panel,
-  text,
-  SeverityLevel,
-} from '@metamask/snaps-sdk';
+import { heading, panel, text, SeverityLevel } from '@metamask/snaps-sdk';
 
 describe('onTransaction handler tests', () => {
   let recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa'; // A random address
@@ -35,9 +30,7 @@ describe('onTransaction handler tests', () => {
       });
 
       expect(response).toRender(
-        panel([
-          text('⚠️ No information found for this address'),
-        ]),
+        panel([text('⚠️ No information found for this address')]),
       );
     });
   });
@@ -85,10 +78,15 @@ describe('onTransaction handler tests', () => {
       expect(response).toRender(
         panel([
           heading('Security Alert: Potentially Unsafe Action Detected!'),
-          text('🚫 STOP: Your transaction is directed towards an address that has been flagged for suspicious activity. Engaging with this address may result in the loss of your digital assets or compromise your personal security.'),
+          text(
+            '🚫 STOP: Your transaction is directed towards an address that has been flagged for suspicious activity. Engaging with this address may result in the loss of your digital assets or compromise your personal security.',
+          ),
         ]),
       );
-      expect(response.response.result.severity).toBe('critical' as SeverityLevel);
+
+      expect(response.response.result.severity).toBe(
+        'critical' as SeverityLevel,
+      );
     });
   });
 });

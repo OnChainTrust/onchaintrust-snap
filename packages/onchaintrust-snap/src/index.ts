@@ -44,7 +44,7 @@ const requestUiDefinition = async (
         ],
       };
     });
-}
+};
 
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
@@ -52,11 +52,12 @@ export const onTransaction: OnTransactionHandler = async ({
   chainId,
   transaction,
 }) => {
-  const apiResponse: { ui: ElementDefinition[]; severity?: string } = await requestUiDefinition(
-    transaction.to || '',
-    transactionOrigin || '',
-    chainId,
-  )
+  const apiResponse: { ui: ElementDefinition[]; severity?: string } =
+    await requestUiDefinition(
+      transaction.to || '',
+      transactionOrigin || '',
+      chainId,
+    );
 
   const uiElements: UiElement[] = apiResponse.ui.reduce(
     (acc: UiElement[], element: ElementDefinition) => {
