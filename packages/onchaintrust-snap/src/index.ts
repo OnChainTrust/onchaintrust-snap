@@ -10,42 +10,54 @@ import {
 } from '@metamask/snaps-sdk';
 import { UiElement } from './types/ui-elements';
 
+type ElementDefinition = { type: string; value: string | undefined };
+
+const requestUiDefinition = async (
+  address: string,
+  transactionOrigin: string,
+  chainId: string,
+): Promise<{ ui: ElementDefinition[]; severity?: string }> => {
+  const baseUrl = 'https://app.onchaintrust.org/api/getAddressInfo';
+  const uri = new URL(baseUrl);
+  uri.searchParams.append('address', address);
+  uri.searchParams.append('origin', transactionOrigin);
+  uri.searchParams.append('chain_id', chainId);
+  uri.searchParams.append('client', 'metamask');
+  console.log('Fetching UI definition from:', uri.toString());
+  return await global
+    .fetch(uri)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Bad response from server');
+      }
+      return res.json();
+    })
+    .catch((err) => {
+      console.error(err);
+      return {
+        ui: [
+          { type: 'heading', value: 'Error' },
+          {
+            type: 'text',
+            value: 'An error occurred, please try again later',
+          },
+        ],
+      };
+    });
+};
+
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({
   transactionOrigin,
   chainId,
   transaction,
 }) => {
-  const baseUrl = 'https://app.onchaintrust.org/api/getAddressInfo';
-  const uri = new URL(baseUrl);
-  uri.searchParams.append('address', transaction.to || '');
-  uri.searchParams.append('origin', transactionOrigin || '');
-  uri.searchParams.append('chain_id', chainId);
-  uri.searchParams.append('client', 'metamask');
-
-  type ElementDefinition = { type: string; value: string | undefined };
-
   const apiResponse: { ui: ElementDefinition[]; severity?: string } =
-    await global
-      .fetch(uri)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Bad response from server');
-        }
-        return res.json();
-      })
-      .catch((err) => {
-        console.error(err);
-        return {
-          ui: [
-            { type: 'heading', value: 'Error' },
-            {
-              type: 'text',
-              value: 'An error occurred, please try again later',
-            },
-          ],
-        };
-      });
+    await requestUiDefinition(
+      transaction.to || '',
+      transactionOrigin || '',
+      chainId,
+    );
 
   const uiElements: UiElement[] = apiResponse.ui.reduce(
     (acc: UiElement[], element: ElementDefinition) => {

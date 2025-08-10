@@ -1,65 +1,45 @@
 import { installSnap } from '@metamask/snaps-jest';
-import {
-  copyable,
-  divider,
-  heading,
-  panel,
-  text,
-  image,
-} from '@metamask/snaps-sdk';
+import { heading, panel, text, SeverityLevel } from '@metamask/snaps-sdk';
 
 describe('onTransaction handler tests', () => {
-  const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa'; // A random address
-  const apiUri = `https://app.onchaintrust.org/api/getAddressInfo?address=${recipientAddress}&origin=https%3A%2F%2Fexample.com&chain_id=eip155%3A1&client=metamask`;
+  let recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa'; // A random address
 
   /**
    * Sets up the test environment for the onTransaction handler.
    *
-   * @param responseBody - The response body to return from the mock.
-   * @param statusCode - The status code to return from the mock.
-   * @returns The sendTransaction function and the unmock function.
+   * @returns The sendTransaction function.
    */
-  async function setupTestEnvironment(
-    responseBody: string | undefined,
-    statusCode = 200,
-  ) {
-    const { mock, sendTransaction: localSendTransaction } = await installSnap();
+  async function setupTestEnvironment() {
+    const { sendTransaction: localSendTransaction } = await installSnap();
 
-    const mockSetup = await mock({
-      url: apiUri,
-      response: {
-        status: statusCode,
-        body: responseBody,
-      },
-    });
-
-    return { sendTransaction: localSendTransaction, unmock: mockSetup.unmock };
+    return { sendTransaction: localSendTransaction };
   }
 
   let sendTransaction: (transaction: any) => Promise<any>;
-  let unmock: () => Promise<void>;
 
-  afterEach(async () => {
-    if (unmock) {
-      await unmock();
-    }
+  describe('when no information is found for the address', () => {
+    beforeEach(async () => {
+      const setup = await setupTestEnvironment();
+      sendTransaction = setup.sendTransaction;
+    });
+
+    it('should display UI components correctly', async () => {
+      const response = await sendTransaction({
+        to: recipientAddress,
+        origin: 'https://example.com',
+      });
+
+      expect(response).toRender(
+        panel([text('⚠️ No information found for this address')]),
+      );
+    });
   });
 
-  describe('when UI definition is returned by the backend', () => {
+  describe('when address is verified', () => {
     beforeEach(async () => {
-      const responseBody = `{
-        "ui":[
-          {"type":"heading","value":"Title of the panel"},
-          {"type":"image","value":"<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>"},
-          {"type":"copyable","value":"Text to be copied"},
-          {"type":"text","value":"Text before the divider"},
-          {"type":"divider"},
-          {"type":"text","value":"Text after the divider"}
-        ],
-        "severity":"info"
-      }`;
+      recipientAddress = '0x00000000000000000000000000000000f0cacc1a';
 
-      const setup = await setupTestEnvironment(responseBody);
+      const setup = await setupTestEnvironment();
       sendTransaction = setup.sendTransaction;
     });
 
@@ -71,28 +51,25 @@ describe('onTransaction handler tests', () => {
 
       expect(response).toRender(
         panel([
-          heading('Title of the panel'),
-          image(
-            "<svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>",
-          ),
-          copyable('Text to be copied'),
-          text('Text before the divider'),
-          divider(),
-          text('Text after the divider'),
+          text('✅ Verified address'),
+          heading('Example Corp LTD'),
+          text('LEI: 1234567890'),
+          text('Email: example@example.com'),
+          text('Message: Hello there'),
         ]),
       );
     });
   });
 
-  describe('when error happens while requesting the API', () => {
+  describe('when address is malicious', () => {
     beforeEach(async () => {
-      const responseBody = undefined;
+      recipientAddress = '0x00000000000000000000000000000000f00dbabe';
 
-      const setup = await setupTestEnvironment(responseBody, 500);
+      const setup = await setupTestEnvironment();
       sendTransaction = setup.sendTransaction;
     });
 
-    it('should display an error message', async () => {
+    it('should display UI components correctly', async () => {
       const response = await sendTransaction({
         to: recipientAddress,
         origin: 'https://example.com',
@@ -100,9 +77,15 @@ describe('onTransaction handler tests', () => {
 
       expect(response).toRender(
         panel([
-          heading('Error'),
-          text('An error occurred, please try again later'),
+          heading('Security Alert: Potentially Unsafe Action Detected!'),
+          text(
+            '🚫 STOP: Your transaction is directed towards an address that has been flagged for suspicious activity. Engaging with this address may result in the loss of your digital assets or compromise your personal security.',
+          ),
         ]),
+      );
+
+      expect(response.response.result.severity).toBe(
+        'critical' as SeverityLevel,
       );
     });
   });
