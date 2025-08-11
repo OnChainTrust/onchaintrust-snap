@@ -11841,14 +11841,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^9.1.0":
-  version: 9.1.0
-  resolution: "eslint-config-prettier@npm:9.1.0"
+"eslint-config-prettier@npm:^10.1.8":
+  version: 10.1.8
+  resolution: "eslint-config-prettier@npm:10.1.8"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: 9229b768c879f500ee54ca05925f31b0c0bafff3d9f5521f98ff05127356de78c81deb9365c86a5ec4efa990cb72b74df8612ae15965b14136044c73e1f6a907
+  checksum: 9140e19f78f0dbc888b160bb72b85f8043bada7b12a548faa56cea0ba74f8ef16653250ffd014d85d9a376a88c4941c96a3cdc9d39a07eb3def6967166635bd8
   languageName: node
   linkType: hard
 
@@ -18423,7 +18423,7 @@ __metadata:
     "@metamask/eslint-config-nodejs": ^14.0.0
     "@metamask/eslint-config-typescript": ^14.0.0
     eslint: ^9.11.0
-    eslint-config-prettier: ^9.1.0
+    eslint-config-prettier: ^10.1.8
     eslint-import-resolver-typescript: ^3.6.3
     eslint-plugin-import-x: ^4.3.0
     eslint-plugin-jest: ^28.8.3
@@ -21275,7 +21275,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.62.0
     babel-plugin-styled-components: ^2.1.4
     eslint: ^8.56.0
-    eslint-config-prettier: ^9.1.0
+    eslint-config-prettier: ^10.1.8
     eslint-plugin-import: ^2.29.1
     eslint-plugin-jest: ^27.9.0
     eslint-plugin-jsdoc: ^41.1.2
