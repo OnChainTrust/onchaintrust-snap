@@ -1,14 +1,14 @@
+import type { OnTransactionHandler, Panel } from '@metamask/snaps-sdk';
 import {
-  OnTransactionHandler,
   heading,
   panel,
   text,
   divider,
   copyable,
   image,
-  Panel,
 } from '@metamask/snaps-sdk';
-import { UiElement } from './types/ui-elements';
+
+import type { UiElement } from './types/ui-elements';
 
 type ElementDefinition = { type: string; value: string | undefined };
 
@@ -24,16 +24,15 @@ const requestUiDefinition = async (
   uri.searchParams.append('chain_id', chainId);
   uri.searchParams.append('client', 'metamask');
   console.log('Fetching UI definition from:', uri.toString());
-  return await global
-    .fetch(uri)
-    .then((res) => {
+  return await fetch(uri)
+    .then(async (res) => {
       if (!res.ok) {
         throw new Error('Bad response from server');
       }
       return res.json();
     })
-    .catch((err) => {
-      console.error(err);
+    .catch((error) => {
+      console.error(error);
       return {
         ui: [
           { type: 'heading', value: 'Error' },
@@ -54,8 +53,8 @@ export const onTransaction: OnTransactionHandler = async ({
 }) => {
   const apiResponse: { ui: ElementDefinition[]; severity?: string } =
     await requestUiDefinition(
-      transaction.to || '',
-      transactionOrigin || '',
+      transaction.to ?? '',
+      transactionOrigin ?? '',
       chainId,
     );
 

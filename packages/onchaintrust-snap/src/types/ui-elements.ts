@@ -1,4 +1,4 @@
-import { NodeType } from '@metamask/snaps-sdk';
+import type { NodeType } from '@metamask/snaps-sdk';
 
 type HeadingElement = {
   type: NodeType.Heading;
