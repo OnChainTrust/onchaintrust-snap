@@ -5,15 +5,7 @@ describe('onTransaction handler tests', () => {
   describe('when no information is found for the address', () => {
     it('should display UI components correctly', async () => {
       const { onTransaction } = await installSnap();
-      const response1 = await onTransaction({
-      value: '0x0',
-      data: '0x',
-      gasLimit: '0x5208',
-      maxFeePerGas: '0x5208',
-      maxPriorityFeePerGas: '0x5208',
-      nonce: '0x0',
-    });
-      let recipientAddress : `0x${string}` = '0xdac83f876ae50433a20363845f43042d8d81b1aa';
+      const recipientAddress = '0xdac83f876ae50433a20363845f43042d8d81b1aa';
       const response = await onTransaction({
         to: recipientAddress,
         origin: 'https://example.com',
