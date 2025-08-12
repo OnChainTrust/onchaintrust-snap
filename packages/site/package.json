@@ -28,7 +28,7 @@
     "@metamask/providers": "^14.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
+    "react-is": "^19.1.1",
     "styled-components": "6.1.19"
   },
   "devDependencies": {
