@@ -10,7 +10,7 @@ Users can verify their addresses using the [OnChainTrust Dapp](https://app.oncha
 
 - [MetaMask Flask](https://metamask.io/flask/)
   - ⚠️ You cannot have other versions of MetaMask installed
-- Nodejs `^18.16.0`.
+- Nodejs `^20.19.0`.
   - Once installed, you should also install [Yarn](http://yarnpkg.com/) with `npm i -g yarn` to make working with this repository easiest.
 
 ## Installing

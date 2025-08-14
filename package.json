@@ -39,7 +39,7 @@
     "@metamask/eslint-config-jest": "^14.0.0",
     "@metamask/eslint-config-nodejs": "^14.0.0",
     "@metamask/eslint-config-typescript": "^14.0.0",
-    "eslint": "^9.11.0",
+    "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import-x": "^4.3.0",
@@ -48,14 +48,14 @@
     "eslint-plugin-n": "^17.10.3",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.1.0",
-    "prettier": "^3.3.3",
-    "prettier-plugin-packagejson": "^2.4.11",
-    "typescript": "^5.7.3",
+    "prettier": "^3.6.2",
+    "prettier-plugin-packagejson": "^2.5.19",
+    "typescript": "^5.9.2",
     "typescript-eslint": "^8.6.0"
   },
   "packageManager": "yarn@3.2.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": "^20.19.0"
   },
   "lavamoat": {
     "allowScripts": {
