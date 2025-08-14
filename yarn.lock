@@ -3452,7 +3452,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-cli@npm:^8.0.0":
+"@metamask/snaps-cli@npm:^8.2.0":
   version: 8.2.0
   resolution: "@metamask/snaps-cli@npm:8.2.0"
   dependencies:
@@ -4034,7 +4034,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@onchaintrust/onchaintrust-snap@workspace:packages/onchaintrust-snap"
   dependencies:
-    "@metamask/snaps-cli": ^8.0.0
+    "@metamask/snaps-cli": ^8.2.0
     "@metamask/snaps-jest": ^9.4.0
     "@metamask/snaps-sdk": 9.2.0
     "@types/react": ^19.1.10
