@@ -1,5 +1,5 @@
 {
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "Community-powered security for on-chain transactions: recipient / smart contract owner information on the transaction confirmation screen, protection against phishing and frontend attacks, and more.",
   "proposedName": "OnChainTrust",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/OnChainTrust/onchaintrust-snap.git"
   },
   "source": {
-    "shasum": "D7v/eNuK0/xBL3UBmYy4go2l3Tkt4frOauA4CTdv2tE=",
+    "shasum": "4R94xJE4i6Ib4uak8kLXZH9mM+b2AApRI/rA3aej21s=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

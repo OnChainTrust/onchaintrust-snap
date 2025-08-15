@@ -4037,8 +4037,6 @@ __metadata:
     "@metamask/snaps-cli": ^8.2.0
     "@metamask/snaps-jest": ^9.4.0
     "@metamask/snaps-sdk": 9.2.0
-    "@types/react": ^19.1.10
-    "@types/react-dom": ^19.1.7
     buffer: ^6.0.3
     eslint: ^9.33.0
     jest: ^30.0.5
