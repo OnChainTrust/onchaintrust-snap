@@ -1,6 +1,13 @@
 import type { OnTransactionHandler } from '@metamask/snaps-sdk';
 import { SeverityLevel } from '@metamask/snaps-sdk';
-import { Box, Heading, Text, Divider, Copyable, Image } from '@metamask/snaps-sdk/jsx';
+import {
+  Box,
+  Heading,
+  Text,
+  Divider,
+  Copyable,
+  Image,
+} from '@metamask/snaps-sdk/jsx';
 
 type ElementDefinition = { type: string; value?: string };
 
@@ -64,11 +71,12 @@ export const onTransaction: OnTransactionHandler = async ({
   );
 
   const content = (
-    <Box>
-      {apiResponse.ui?.map((el, i) => renderElement(el, i))}
-    </Box>
+    <Box>{apiResponse.ui?.map((el, i) => renderElement(el, i))}</Box>
   );
-  const result = apiResponse.severity === 'critical' ? { content, severity: SeverityLevel.Critical } : { content };
+  const result =
+    apiResponse.severity === 'critical'
+      ? { content, severity: SeverityLevel.Critical }
+      : { content };
 
   return result;
 };

@@ -40,11 +40,14 @@ describe('onTransaction handler tests (JSX UI, live server)', () => {
 
       expect(screen).toRender(
         <Box>
-          <Heading key="el-0">Security Alert: Potentially Unsafe Action Detected!</Heading>
+          <Heading key="el-0">
+            Security Alert: Potentially Unsafe Action Detected!
+          </Heading>
           <Text key="el-1">
-            🚫 STOP: Your transaction is directed towards an address that has been flagged for
-            suspicious activity. Engaging with this address may result in the loss of your digital
-            assets or compromise your personal security.
+            🚫 STOP: Your transaction is directed towards an address that has
+            been flagged for suspicious activity. Engaging with this address may
+            result in the loss of your digital assets or compromise your
+            personal security.
           </Text>
         </Box>,
       );
