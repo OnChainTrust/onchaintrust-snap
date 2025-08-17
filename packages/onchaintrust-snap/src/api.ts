@@ -20,7 +20,6 @@ function isUiPayload(value: unknown): value is UiPayload {
   const v = value as any;
   if (!v || typeof v !== 'object' || !Array.isArray(v.ui)) return false;
 
-  // Шаллоу-проверка элементов UI: { type: string, children?: (string | { type: string })[] }
   const isElement = (node: any) =>
     node &&
     typeof node === 'object' &&
