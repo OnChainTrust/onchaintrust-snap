@@ -41,7 +41,7 @@
     "@metamask/eslint-config-typescript": "^14.0.0",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.3.0",
     "eslint-plugin-jest": "^28.8.3",
     "eslint-plugin-jsdoc": "^52.0.4",
