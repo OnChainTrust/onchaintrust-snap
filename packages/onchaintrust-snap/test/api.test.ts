@@ -1,5 +1,5 @@
-import { requestUiDefinition, type ApiResult } from './api';
-import type { UiPayload } from './types/ui-schema';
+import { requestUiDefinition, type ApiResult } from '../src/api';
+import type { UiPayload } from '../src/types/ui-schema';
 
 describe('requestUiDefinition', () => {
   const ORIGINAL_FETCH = global.fetch;
