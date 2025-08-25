@@ -7,7 +7,7 @@
     "url": "https://github.com/OnChainTrust/onchaintrust-snap.git"
   },
   "source": {
-    "shasum": "ZvMGunoU5BKWMOrRvVrMtmYIaA08T5iPqIEH+jaS/G8=",
+    "shasum": "+S9dM+erS0GOV1AWm2MxKJVJfvigx6knvyF15zGU3HM=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
