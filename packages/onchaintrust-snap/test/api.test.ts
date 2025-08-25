@@ -5,7 +5,7 @@ describe('requestUiDefinition', () => {
   const ORIGINAL_FETCH = global.fetch;
 
   beforeEach(() => {
-    global.fetch = jest.fn();
+    jest.spyOn(global, 'fetch').mockImplementation();
   });
 
   afterEach(() => {
@@ -38,9 +38,11 @@ describe('requestUiDefinition', () => {
         {
           type: 'row',
           props: { label: 'Amount' },
-          children: [{ type: 'value', props: { value: '0.05 ETH', extra: '$200' } }],
+          children: [
+            { type: 'value', props: { value: '0.05 ETH', extra: '$200' } },
+          ],
         },
-      ]
+      ],
     };
     mockFetchOk(payload);
 
@@ -48,7 +50,11 @@ describe('requestUiDefinition', () => {
     const origin = 'https://example.com';
     const chainId = 'eip155:1';
 
-    const result: ApiResult = await requestUiDefinition(address, origin, chainId);
+    const result: ApiResult = await requestUiDefinition(
+      address,
+      origin,
+      chainId,
+    );
 
     expect(result.ok).toBe(true);
     expect((result as any).data).toEqual(payload);
@@ -93,7 +99,11 @@ describe('requestUiDefinition', () => {
     // children contains object without type -> invalid
     const invalid: any = {
       ui: [
-        { type: 'text', props: { children: 'hi' }, children: ['inline', { nope: true }] },
+        {
+          type: 'text',
+          props: { children: 'hi' },
+          children: ['inline', { nope: true }],
+        },
       ],
     };
     (global.fetch as jest.Mock).mockResolvedValue({

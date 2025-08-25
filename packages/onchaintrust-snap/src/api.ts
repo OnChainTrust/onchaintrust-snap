@@ -6,7 +6,18 @@ export type ApiResult =
 
 const BASE_URL = 'https://app.onchaintrust.org/api/getAddressInfo';
 
-function buildUrl(params: { address: string; origin: string; chainId: string }): URL {
+/**
+ *
+ * @param params
+ * @param params.address
+ * @param params.origin
+ * @param params.chainId
+ */
+function buildUrl(params: {
+  address: string;
+  origin: string;
+  chainId: string;
+}): URL {
   const { address, origin, chainId } = params;
   const url = new URL(BASE_URL);
   url.searchParams.set('address', address ?? '');
@@ -16,9 +27,15 @@ function buildUrl(params: { address: string; origin: string; chainId: string }):
   return url;
 }
 
+/**
+ *
+ * @param value
+ */
 function isUiPayload(value: unknown): value is UiPayload {
   const v = value as any;
-  if (!v || typeof v !== 'object' || !Array.isArray(v.ui)) return false;
+  if (!v || typeof v !== 'object' || !Array.isArray(v.ui)) {
+    return false;
+  }
 
   const isElement = (node: any) =>
     node &&
@@ -27,16 +44,28 @@ function isUiPayload(value: unknown): value is UiPayload {
     (node.children == null ||
       (Array.isArray(node.children) &&
         node.children.every(
-          (c: any) => typeof c === 'string' || (c && typeof c === 'object' && typeof c.type === 'string'),
+          (c: any) =>
+            typeof c === 'string' ||
+            (c && typeof c === 'object' && typeof c.type === 'string'),
         )));
 
-  if (!v.ui.every(isElement)) return false;
+  if (!v.ui.every(isElement)) {
+    return false;
+  }
 
-  if (v.severity != null && typeof v.severity !== 'string') return false;
+  if (v.severity != null && typeof v.severity !== 'string') {
+    return false;
+  }
 
   return true;
 }
 
+/**
+ *
+ * @param address
+ * @param origin
+ * @param chainId
+ */
 export async function requestUiDefinition(
   address: string,
   origin: string,

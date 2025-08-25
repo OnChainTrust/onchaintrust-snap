@@ -44,7 +44,7 @@ export type UiChild = string | UiElement;
 export type UiElement = Readonly<{
   type: UiComponentType;
   props?: Readonly<Record<string, unknown>>;
-  children?: ReadonlyArray<UiChild>;
+  children?: readonly UiChild[];
 }>;
 
 /**
@@ -53,6 +53,6 @@ export type UiElement = Readonly<{
  * but we keep `string` for forward compatibility.
  */
 export type UiPayload = Readonly<{
-  ui: ReadonlyArray<UiElement>;
+  ui: readonly UiElement[];
   severity?: string;
 }>;
