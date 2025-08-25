@@ -15,73 +15,93 @@ type TypeLike = string | { displayName?: string; name?: string } | any;
 type NodeLike = { type: TypeLike; props: Record<string, any>; children?: any };
 
 /**
+ * Type guard: is value a NodeLike.
  *
- * @param x
+ * @param value Value to check.
+ * @returns True if NodeLike.
  */
-function isNode(x: any): x is NodeLike {
-  return Boolean(x) && typeof x === 'object' && 'type' in x && 'props' in x;
+function isNode(value: any): value is NodeLike {
+  return (
+    Boolean(value) &&
+    typeof value === 'object' &&
+    'type' in value &&
+    'props' in value
+  );
 }
 
 /**
+ * Return children array for a NodeLike (reads either props.children or children).
+ * If none, returns [].
  *
- * @param n
+ * @param node Node to read from.
+ * @returns Children as an array.
  */
-function childrenOf(n: NodeLike): any[] {
-  const c = (n as any)?.props?.children ?? (n as any)?.children;
-  return c == null ? [] : Array.isArray(c) ? c : [c];
+function childrenOf(node: NodeLike): any[] {
+  const childRaw = (node as any)?.props?.children ?? (node as any)?.children;
+  if (childRaw === null || childRaw === undefined) {
+    return [];
+  }
+  return Array.isArray(childRaw) ? childRaw : [childRaw];
 }
 
 /**
+ * DFS walk over the node tree, visiting each NodeLike.
  *
- * @param n
- * @param visit
+ * @param node Root node.
+ * @param visit Visitor callback invoked for each node.
  */
-function walk(n: NodeLike, visit: (m: NodeLike) => void) {
-  visit(n);
-  for (const ch of childrenOf(n)) {
-    if (isNode(ch)) {
-      walk(ch, visit);
+function walk(node: NodeLike, visit: (m: NodeLike) => void) {
+  visit(node);
+  for (const child of childrenOf(node)) {
+    if (isNode(child)) {
+      walk(child, visit);
     }
   }
 }
 
 /**
+ * Resolve a human-readable type name for a NodeLike.
  *
- * @param n
+ * @param node Node to inspect.
+ * @returns Type name (case-insensitive comparable).
  */
-function typeName(n: NodeLike): string {
-  const t = n.type;
-  if (typeof t === 'string') {
-    return t;
+function typeName(node: NodeLike): string {
+  const typeRef = node.type;
+  if (typeof typeRef === 'string') {
+    return typeRef;
   }
-  if (t?.displayName) {
-    return String(t.displayName);
+  if (typeRef?.displayName) {
+    return String(typeRef.displayName);
   }
-  if (t?.name) {
-    return String(t.name);
+  if (typeRef?.name) {
+    return String(typeRef.name);
   }
   return '__Unknown__';
 }
 
 /**
+ * Case-insensitive equality on node's type name.
  *
- * @param n
- * @param name
+ * @param node Node to check.
+ * @param name Expected name.
+ * @returns True if equals (case-insensitive).
  */
-function eqName(n: NodeLike, name: string): boolean {
-  return typeName(n).toLowerCase() === name.toLowerCase();
+function eqName(node: NodeLike, name: string): boolean {
+  return typeName(node).toLowerCase() === name.toLowerCase();
 }
 
 /**
+ * Collect all descendants (including root) with given type name.
  *
- * @param root
- * @param name
+ * @param root Root node.
+ * @param name Type name to match.
+ * @returns Array of matching nodes.
  */
 function queryAllByName(root: NodeLike, name: string): NodeLike[] {
   const out: NodeLike[] = [];
-  walk(root, (n) => {
-    if (eqName(n, name)) {
-      out.push(n);
+  walk(root, (node) => {
+    if (eqName(node, name)) {
+      out.push(node);
     }
   });
   return out;
@@ -90,59 +110,60 @@ function queryAllByName(root: NodeLike, name: string): NodeLike[] {
 /**
  * Ensure count >= min and return the array (typed as NodeLike[]).
  *
- * @param root
- * @param name
- * @param min
+ * @param root Root node.
+ * @param name Type name to query.
+ * @param min Minimum expected count (inclusive).
+ * @returns All matches.
  */
 function getAllByName(root: NodeLike, name: string, min = 1): NodeLike[] {
   const arr = queryAllByName(root, name);
-  if (arr.length < min) {
-    throw new Error(
-      `Nodes not found: ${name} (need >= ${min}, got ${arr.length})`,
-    );
-  }
+  expect(arr.length).toBeGreaterThanOrEqual(min);
   return arr;
 }
 
 /**
  * Return the first node with given name or fail.
  *
- * @param root
- * @param name
+ * @param root Root node.
+ * @param name Type name to get.
+ * @returns First match.
  */
 function getByName(root: NodeLike, name: string): NodeLike {
   const arr = queryAllByName(root, name);
-  if (arr.length === 0) {
-    throw new Error(`Node not found: ${name}`);
-  }
+  expect(arr.length).toBeGreaterThan(0);
   return at(arr, 0, name); // <- guarantees NodeLike, not undefined
 }
 
 /**
  * Assert value is defined and return it (narrows to NodeLike where relevant).
  *
- * @param v
- * @param msg
+ * @param value Value to check.
+ * @param message Error message if undefined/null.
+ * @returns The same value (now defined).
  */
-function expectDefined<T>(v: T | undefined | null, msg: string): T {
-  if (v == null) {
-    throw new Error(msg);
+function expectDefined<ValueT>(
+  value: ValueT | undefined | null,
+  message: string,
+): ValueT {
+  if (value === null || value === undefined) {
+    throw new Error(message);
   }
-  return v as T;
+  return value as ValueT;
 }
 
 /**
  * Safe index accessor with runtime check, returns T (not T|undefined).
  *
- * @param arr
- * @param idx
- * @param msg
+ * @param arr Array to index.
+ * @param idx Index to read.
+ * @param label Optional label used in error message.
+ * @returns Element at index.
  */
-function at<T>(arr: T[], idx: number, msg = 'Index'): T {
+function at<ItemT>(arr: ItemT[], idx: number, label = 'Index'): ItemT {
   if (idx < 0 || idx >= arr.length) {
-    throw new Error(`${msg} ${idx} out of range (len=${arr.length})`);
+    throw new Error(`${label} ${idx} out of range (len=${arr.length})`);
   }
-  return arr[idx] as T;
+  return arr[idx] as ItemT;
 }
 
 /* Utility: valid 0x…40 for addresses */
@@ -153,16 +174,18 @@ const hex40 = (ch: string) => `0x${ch.repeat(40)}`;
 /* -------------------------------------------------------------------------- */
 
 /**
+ * Shallow props subset comparison: actual must contain all keys with exact values.
  *
- * @param actual
- * @param subset
+ * @param actual Actual props.
+ * @param subset Expected subset.
+ * @returns True if subset matches.
  */
 function propsContain(
   actual: Record<string, any>,
   subset: Record<string, any>,
 ): boolean {
-  for (const [k, v] of Object.entries(subset)) {
-    if (actual?.[k] !== v) {
+  for (const [key, val] of Object.entries(subset)) {
+    if (actual?.[key] !== val) {
       return false;
     }
   }
@@ -173,7 +196,8 @@ expect.extend({
   /**
    * Assert node-like shape
    *
-   * @param received
+   * @param received Value under test.
+   * @returns Jest matcher result object.
    */
   toBeNode(received: any) {
     const pass = isNode(received);
@@ -189,8 +213,9 @@ expect.extend({
   /**
    * Assert node type equals name (case-insensitive)
    *
-   * @param received
-   * @param expected
+   * @param received Node under test.
+   * @param expected Expected type name.
+   * @returns Jest matcher result object.
    */
   toHaveTypeName(received: NodeLike, expected: string) {
     const tn = typeName(received);
@@ -204,9 +229,10 @@ expect.extend({
   /**
    * Assert there exists a descendant of type with optional props subset
    *
-   * @param received
-   * @param type
-   * @param subset
+   * @param received Root node.
+   * @param type Type name to search.
+   * @param subset Optional props subset to match.
+   * @returns Jest matcher result object.
    */
   toContainNodeWithProps(
     received: NodeLike,
@@ -215,9 +241,9 @@ expect.extend({
   ) {
     const all = queryAllByName(received, type);
     const pass =
-      subset == null
+      subset === null || subset === undefined
         ? all.length > 0
-        : all.some((n) => propsContain(n.props, subset));
+        : all.some((node) => propsContain(node.props, subset));
     return {
       pass,
       message: () =>
@@ -227,17 +253,6 @@ expect.extend({
     };
   },
 });
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace jest {
-    interface Matchers<R> {
-      toBeNode(): R;
-      toHaveTypeName(expected: string): R;
-      toContainNodeWithProps(type: string, subset?: Record<string, any>): R;
-    }
-  }
-}
 
 /* -------------------------------------------------------------------------- */
 /* 1) Structure                                                                */
@@ -460,7 +475,7 @@ describe('renderUI — kitchen sink', () => {
     });
 
     const skBanner = expectDefined(
-      getAllByName(banner, 'Skeleton').find((s) => s.props.width === '100%'),
+      getAllByName(banner, 'Skeleton').find((sk) => sk.props.width === '100%'),
       'Banner skeleton not found',
     );
     expect(skBanner.props.height).toBe(10);
@@ -476,11 +491,11 @@ describe('renderUI — kitchen sink', () => {
     expect(btn.props.variant).toBe('primary');
 
     // Checkbox
-    const cb = getByName(root, 'Checkbox');
-    expect(cb.props.name).toBe('agree');
-    expect(cb.props.checked).toBe(true);
-    expect(cb.props.variant).toBe('default');
-    expect(cb.props.label).toBe('Agree');
+    const checkbox = getByName(root, 'Checkbox');
+    expect(checkbox.props.name).toBe('agree');
+    expect(checkbox.props.checked).toBe(true);
+    expect(checkbox.props.variant).toBe('default');
+    expect(checkbox.props.label).toBe('Agree');
 
     // Dropdown + Option
     const dd = getByName(root, 'Dropdown');
@@ -488,7 +503,10 @@ describe('renderUI — kitchen sink', () => {
     const opts = getAllByName(dd, 'Option', 2);
     const opt0 = at(opts, 0, 'Option');
     const opt1 = at(opts, 1, 'Option');
-    expect(opts.map((o) => o.props.value)).toEqual(['1', '2']);
+    expect(opts.map((optNode) => optNode.props.value)).toStrictEqual([
+      '1',
+      '2',
+    ]);
     expect(opt0.props.children).toBe('One'); // from label
     expect(opt1.props.children).toBe('Two'); // from children
 
@@ -526,22 +544,23 @@ describe('renderUI — kitchen sink', () => {
 
     // Skeleton (outside banner) — default height 22
     const skPlain = expectDefined(
-      getAllByName(root, 'Skeleton').find((s) => s.props.width === '50%'),
+      getAllByName(root, 'Skeleton').find((sk) => sk.props.width === '50%'),
       'Plain skeleton not found',
     );
     expect(skPlain.props.height).toBe(22);
     expect(skPlain.props.borderRadius).toBe('sm');
 
     // Link
-    const link = expectDefined(
-      getAllByName(root, 'Link').find((l) => l.props.href === 'https://x'),
+    const linkNode = expectDefined(
+      getAllByName(root, 'Link').find((ln) => ln.props.href === 'https://x'),
       'Link https://x not found',
     );
-    expect(link.props.children).toBe('Go');
+    expect(linkNode.props.children).toBe('Go');
 
     // Inner Box (direction/center; alignment is not passed)
     const innerBox = expectDefined(
       getAllByName(root, 'Box').find(
+        // eslint-disable-next-line jest/no-conditional-in-test
         (b) => b !== root && b.props.direction === 'vertical',
       ),
       'Inner Box not found',
@@ -612,9 +631,7 @@ describe('renderUI — edge cases', () => {
     ];
     const root = renderUI(ui) as unknown as NodeLike;
     const top = childrenOf(root).filter(isNode);
-    if (top.length !== 2) {
-      throw new Error(`Unexpected top length: ${top.length}`);
-    }
+    expect(top).toHaveLength(2);
     expect(typeName(at(top, 0, 'top'))).toBe('Heading');
     expect(typeName(at(top, 1, 'top'))).toBe('Text');
   });
@@ -664,7 +681,7 @@ describe('renderUI — edge cases', () => {
   ])('avatar: %s', (_title, ui, expectedAddrs) => {
     const root = renderUI(ui) as unknown as NodeLike;
     const avatars = getAllByName(root, 'Avatar', expectedAddrs.length);
-    expect(avatars.map((a) => a.props.address)).toEqual(expectedAddrs);
+    expect(avatars.map((a) => a.props.address)).toStrictEqual(expectedAddrs);
   });
 
   it('banner: filters body to whitelist and inserts placeholder when empty', () => {
@@ -689,12 +706,12 @@ describe('renderUI — edge cases', () => {
 
     expect(getAllByName(b1, 'Box', 0)).toHaveLength(0);
     const hasOk = getAllByName(b1, 'Text', 0).some(
-      (t) => t.props.children === 'ok',
+      (textNode) => textNode.props.children === 'ok',
     );
     expect(hasOk).toBe(true);
 
     const hasPlaceholder = getAllByName(b2, 'Text', 0).some(
-      (t) => t.props.children === '',
+      (textNode) => textNode.props.children === '',
     );
     expect(hasPlaceholder).toBe(true);
   });
@@ -720,7 +737,9 @@ describe('renderUI — edge cases', () => {
     const rowC = at(rows, 2, 'Row');
 
     expect(
-      getAllByName(rowA, 'Text', 0).some((t) => t.props.children === ''),
+      getAllByName(rowA, 'Text', 0).some(
+        (textNode) => textNode.props.children === '',
+      ),
     ).toBe(true);
     expect(getAllByName(rowB, 'Value', 0)).toHaveLength(0);
     expect(getAllByName(rowB, 'Link', 0)).toHaveLength(0);
@@ -772,13 +791,13 @@ describe('renderUI — edge cases', () => {
     const lnk = getByName(root, 'Link');
     expect(getAllByName(lnk, 'Italic', 0)).toHaveLength(1);
 
-    const tx = expectDefined(
+    const textWithIcon = expectDefined(
       getAllByName(root, 'Text', 0).find(
-        (t) => getAllByName(t, 'Icon', 0).length === 1,
+        (textNode) => getAllByName(textNode, 'Icon', 0).length === 1,
       ),
       'Text-with-Icon not found',
     );
-    expect(getAllByName(tx, 'Icon', 0)).toHaveLength(1);
+    expect(getAllByName(textWithIcon, 'Icon', 0)).toHaveLength(1);
   });
 });
 
@@ -793,9 +812,10 @@ describe('errorElements', () => {
     expect(b.props.severity).toBe('danger');
     expect(b.props.title).toBe('Error');
     const hasDefault = getAllByName(b, 'Text', 0).some(
-      (t) =>
-        typeof t.props.children === 'string' &&
-        t.props.children.includes('error'),
+      (textNode) =>
+        // eslint-disable-next-line jest/no-conditional-in-test
+        typeof textNode.props.children === 'string' &&
+        textNode.props.children.includes('error'),
     );
     expect(hasDefault).toBe(true);
   });
@@ -804,7 +824,7 @@ describe('errorElements', () => {
     const root = renderUI(errorElements('Boom')) as unknown as NodeLike;
     const b = getByName(root, 'Banner');
     const hasBoom = getAllByName(b, 'Text', 0).some(
-      (t) => t.props.children === 'Boom',
+      (textNode) => textNode.props.children === 'Boom',
     );
     expect(hasBoom).toBe(true);
   });
