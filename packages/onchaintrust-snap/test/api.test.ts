@@ -1,3 +1,5 @@
+/* eslint-disable n/no-unsupported-features/node-builtins */
+
 import { requestUiDefinition, type ApiResult } from '../src/api';
 import type { UiPayload } from '../src/types/ui-schema';
 
@@ -57,7 +59,7 @@ describe('requestUiDefinition', () => {
     );
 
     expect(result.ok).toBe(true);
-    expect((result as any).data).toEqual(payload);
+    expect((result as any).data).toStrictEqual(payload);
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
     const calledArg = (global.fetch as jest.Mock).mock.calls[0][0];
