@@ -7,7 +7,7 @@
     "url": "https://github.com/OnChainTrust/onchaintrust-snap.git"
   },
   "source": {
-    "shasum": "+S9dM+erS0GOV1AWm2MxKJVJfvigx6knvyF15zGU3HM=",
+    "shasum": "FHnS3DD7s07SNIS+GLdgHZ8IPvAQjxlduik+zjI4SjA=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -21,7 +21,8 @@
     "endowment:transaction-insight": {
       "allowTransactionOrigin": true
     },
-    "endowment:network-access": {}
+    "endowment:network-access": {},
+    "endowment:page-home": {}
   },
   "platformVersion": "9.2.0",
   "manifestVersion": "0.1"
