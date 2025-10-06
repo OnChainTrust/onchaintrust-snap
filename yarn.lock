@@ -3446,13 +3446,13 @@ __metadata:
   linkType: hard
 
 "@metamask/snaps-cli@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "@metamask/snaps-cli@npm:8.2.0"
+  version: 8.3.0
+  resolution: "@metamask/snaps-cli@npm:8.3.0"
   dependencies:
     "@metamask/snaps-rpc-methods": ^13.5.0
     "@metamask/snaps-sandbox": ^1.0.0
     "@metamask/snaps-sdk": ^9.3.0
-    "@metamask/snaps-utils": ^11.4.0
+    "@metamask/snaps-utils": ^11.5.0
     "@metamask/snaps-webpack-plugin": ^5.1.0
     "@metamask/superstruct": ^3.2.1
     "@metamask/utils": ^11.4.2
@@ -3494,7 +3494,7 @@ __metadata:
     yargs: ^17.7.1
   bin:
     mm-snap: ./dist/main.mjs
-  checksum: 1f04baae454d5e53245958df69848f325a2056ec7694d5db7afb1efd857a21493b6d84ef07fa1925573e09a40de7061f1cfbda6f3dc5d140dc42946a6e26122b
+  checksum: 05999d216d2c4cd69e0f8702368282f97421ba68147fb23ab1758172d76370d4070abbfdbad44d75018b47ec13037ee5b07aeb3130677e37fe363be9cc0a684c
   languageName: node
   linkType: hard
 
